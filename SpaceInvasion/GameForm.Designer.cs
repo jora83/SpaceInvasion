@@ -32,7 +32,7 @@
             enemy1 = new PictureBox();
             enemy2 = new PictureBox();
             enemy3 = new PictureBox();
-            player = new PictureBox();
+            playerPictureBox = new PictureBox();
             bullet = new PictureBox();
             scoreText = new Label();
             gameTimer = new System.Windows.Forms.Timer(components);
@@ -40,7 +40,7 @@
             ((System.ComponentModel.ISupportInitialize)enemy1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)enemy2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)enemy3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)player).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)playerPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bullet).BeginInit();
             SuspendLayout();
             // 
@@ -80,16 +80,16 @@
             enemy3.TabStop = false;
             enemy3.Tag = "enemy";
             // 
-            // player
+            // playerPictureBox
             // 
-            player.Image = Properties.Resources.invader7;
-            player.Location = new Point(342, 538);
-            player.Margin = new Padding(6);
-            player.Name = "player";
-            player.Size = new Size(126, 100);
-            player.SizeMode = PictureBoxSizeMode.AutoSize;
-            player.TabIndex = 3;
-            player.TabStop = false;
+            playerPictureBox.Image = Properties.Resources.invader7;
+            playerPictureBox.Location = new Point(342, 538);
+            playerPictureBox.Margin = new Padding(6);
+            playerPictureBox.Name = "playerPictureBox";
+            playerPictureBox.Size = new Size(126, 100);
+            playerPictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
+            playerPictureBox.TabIndex = 3;
+            playerPictureBox.TabStop = false;
             // 
             // bullet
             // 
@@ -137,7 +137,7 @@
             Controls.Add(healthText);
             Controls.Add(scoreText);
             Controls.Add(bullet);
-            Controls.Add(player);
+            Controls.Add(playerPictureBox);
             Controls.Add(enemy3);
             Controls.Add(enemy2);
             Controls.Add(enemy1);
@@ -151,7 +151,7 @@
             ((System.ComponentModel.ISupportInitialize)enemy1).EndInit();
             ((System.ComponentModel.ISupportInitialize)enemy2).EndInit();
             ((System.ComponentModel.ISupportInitialize)enemy3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)player).EndInit();
+            ((System.ComponentModel.ISupportInitialize)playerPictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)bullet).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -162,7 +162,7 @@
         private PictureBox enemy1;
         private PictureBox enemy2;
         private PictureBox enemy3;
-        private PictureBox player;
+        private PictureBox playerPictureBox;
         private PictureBox bullet;
         private Label scoreText;
         private System.Windows.Forms.Timer gameTimer;

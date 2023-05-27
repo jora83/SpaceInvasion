@@ -13,68 +13,32 @@ namespace SpaceInvasion
 {
     public partial class GameForm : Form
     {
-        int formWidth = 900;
-        int formHeight = 700;
-        bool moveLeft, moveRight, shooting;
+        public static int formWidth = 900;
+        public static int formHeight = 700;
         bool isGameOver;
         int score;
-        int playerSpeed = 12;
-        int playerHealth = 100;
         int bulletSpeed;
         int enemySpeed;
         Random rnd = new Random();
 
-        Player plr = new Player();
-        
+        Player player = new Player();
+
         public GameForm()
         {
-
             InitializeComponent();
             ResetGame();
-            plr.playerPictureBox = player;
+            player.playerPictureBox = playerPictureBox;
         }
-
-        //public PictureBox PlayerPictureBox
-        //{
-        //    get
-        //    {
-        //        return player;
-        //    }
-        //}
 
         private void mainGameTimerEvent(object sender, EventArgs e)
         {
 
             scoreText.Text = "Score: " + score.ToString();
-            healthText.Text = "Health: " + playerHealth.ToString();
+            healthText.Text = "Health: " + player.health.ToString();
 
             enemy1.Top += enemySpeed;
             enemy2.Top += enemySpeed;
             enemy3.Top += enemySpeed;
-
-            //if (enemy1.Top > 700 || enemy2.Top > 700 || enemy3.Top > 700)
-            //{
-            //    playerHealth -= 10;
-            //}
-
-            //if (enemy1.Top > 700)
-            //{
-            //    playerHealth -= 10;
-            //    enemy1.Left = rnd.Next(8, 740);
-            //    enemy1.Top = rnd.Next(0, 200) * -1;
-            //}
-            //if (enemy2.Top > 700)
-            //{
-            //    playerHealth -= 10;
-            //    enemy2.Left = rnd.Next(8, 740);
-            //    enemy2.Top = rnd.Next(0, 200) * -1;
-            //}
-            //if (enemy3.Top > 700)
-            //{
-            //    playerHealth -= 10;
-            //    enemy3.Left = rnd.Next(8, 740);
-            //    enemy3.Top = rnd.Next(0, 200) * -1;
-            //}
 
             foreach (Control x in this.Controls)
             {
@@ -82,7 +46,7 @@ namespace SpaceInvasion
                 {
                     if (x.Top > formHeight)
                     {
-                        playerHealth -= 10;
+                        player.health -= 10;
                         x.Left = rnd.Next(8, 740);
                         x.Top = rnd.Next(0, 200) * -1;
                     }
@@ -92,12 +56,12 @@ namespace SpaceInvasion
                         score += 10;
                         x.Left = rnd.Next(8, 740);
                         x.Top = rnd.Next(0, 200) * -1;
-                        shooting = false;
+                        player.shooting = false;
                     }
 
-                    if(player.Bounds.IntersectsWith(x.Bounds))
+                    if (player.playerPictureBox.Bounds.IntersectsWith(x.Bounds))
                     {
-                        playerHealth -= 5;
+                        player.health -= 5;
                         x.Left = rnd.Next(8, 740);
                         x.Top = rnd.Next(0, 200) * -1;
                     }
@@ -107,67 +71,23 @@ namespace SpaceInvasion
             //if (playerHealth <= 0)
             //GameOver();
 
-            if (moveLeft == true && plr.playerPictureBox.Left > 0)
-            {  
-                plr.MoveLeft();
-            }
-            if (moveRight == true && player.Left < (formWidth - player.Width))
-            {
-                player.Left += playerSpeed;
-            }
+            player.MoveLeft();
 
-            if (shooting == true)
-            {
-                bulletSpeed = 20;
-                bullet.Top -= bulletSpeed;
-            }
-            else
-            {
-                bullet.Left = -300;
-                bulletSpeed = 0;
-            }
+            player.MoveRight();
 
-            if (bullet.Top < -30)
-            {
-                shooting = false;
-            }
-
-            //if (bullet.Bounds.IntersectsWith(enemy1.Bounds))
-            //{
-            //    score += 10;
-            //    enemy1.Left = rnd.Next(8, 740);
-            //    enemy1.Top = rnd.Next(0, 200) * -1;
-            //    shooting = false;
-            //}
-
-            //if (bullet.Bounds.IntersectsWith(enemy2.Bounds))
-            //{
-            //    score += 10;
-            //    enemy2.Left = rnd.Next(8, 740);
-            //    enemy2.Top = rnd.Next(0, 200) * -1;
-            //    shooting = false;
-            //}
-
-            //if (bullet.Bounds.IntersectsWith(enemy3.Bounds))
-            //{
-            //    score += 10;
-            //    enemy3.Left = rnd.Next(8, 740);
-            //    enemy3.Top = rnd.Next(0, 200) * -1;
-            //    shooting = false;
-            //}
-
-
+            player.Shoot(bullet);
+            
         }
 
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
             {
-                moveLeft = true;
+                player.moveLeft = true;
             }
             if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
             {
-                moveRight = true;
+                player.moveRight = true;
             }
         }
 
@@ -175,18 +95,17 @@ namespace SpaceInvasion
         {
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
             {
-                moveLeft = false;
+                player.moveLeft = false;
             }
+
             if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
             {
-                moveRight = false;
+                player.moveRight = false;
             }
-            if (e.KeyCode == Keys.Space && shooting == false)
-            {
-                shooting = true;
 
-                bullet.Top = player.Top - (bullet.Height + 5);
-                bullet.Left = player.Left + (player.Width / 2);
+            if (e.KeyCode == Keys.Space && player.shooting == false)
+            {
+                player.IntitializeShooting(bullet);
             }
 
             if (e.KeyCode == Keys.Enter && isGameOver == true)
@@ -198,10 +117,10 @@ namespace SpaceInvasion
         private void ResetGame()
         {
             gameTimer.Start();
-            enemySpeed = 6;
-            
+            enemySpeed = 3;
 
-            playerHealth = 100;
+
+            player.health = 100;
 
             enemy1.Left = rnd.Next(8, 740);
             enemy2.Left = rnd.Next(8, 740);
@@ -212,9 +131,9 @@ namespace SpaceInvasion
             enemy3.Top = rnd.Next(0, 1200) * -1;
 
             score = 0;
-            bulletSpeed = 0;
+            player.bulletSpeed = 0;
             bullet.Left = -300;
-            shooting = false;
+            player.shooting = false;
 
             scoreText.Text = "Score: " + score.ToString();
 
