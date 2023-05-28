@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,49 +11,33 @@ namespace SpaceInvasion.Scripts
     {
         static Random rnd = new Random();
         static int speed = 3;
-        static int counter = 100;
-        static PictureBox enemyPictureBox; 
-        static List<PictureBox> enemyList = new List<PictureBox> ();
+        public static int counter = 100;
+        public static int limit = 100;
+        public static List<PictureBox> PictureBoxes = new List<PictureBox>();
+
         public static void Spawn()
         {
-            counter--;
-            if(counter == 0)
+            PictureBox newEnemy = new PictureBox()
             {
-                enemyList.Add(new PictureBox()
-                {
-                    Tag = "enemy",
-                    Width = 125,
-                    Height = 113,
-                    Left = rnd.Next(8, 740),
-                    Top = rnd.Next(0, 500) * -1
-                });
-                foreach(PictureBox enemy in enemyList)
-                {
-                    enemy.Image = Properties.Resources.invader1;
-                    enemy.Refresh();
-                    //enemy.Load();
-                }
-                //enemyPictureBox = new PictureBox()
-                //{
-                //    Tag = "enemy",
-                //    Width = 125,
-                //    Height = 113,
-                //    Image = Properties.Resources.invader1
-                //};
-                //enemyPictureBox.Left = rnd.Next(8, 740);
-                //enemyPictureBox.Top = rnd.Next(0, 500) * -1;
-                //enemyPictureBox.Refresh();
-                //enemyPictureBox.Load();
-            }   
+                Tag = "enemy",
+                Width = 65,
+                Height = 55,
+                Left = rnd.Next(8, 740),
+                Top = rnd.Next(300, 500) * -1,
+                Image = Properties.Resources.invader1,
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };
+            newEnemy.Refresh();
+            PictureBoxes.Add(newEnemy);
         }
 
         public static void Move()
         {
-            foreach (PictureBox x in enemyList)
+            foreach(PictureBox pb in PictureBoxes)
             {
-                if (x is PictureBox && x.Tag != null && x.Tag.ToString() == "enemy")
+                if (pb is PictureBox && pb.Tag != null && pb.Tag.ToString() == "enemy")
                 {
-                    x.Top += speed;
+                    pb.Top += speed;
                 }
             }
         }

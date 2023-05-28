@@ -15,26 +15,26 @@ namespace SpaceInvasion.Scripts
         int speed = 12;
         public int bulletSpeed = 20;
         public bool moveLeft, moveRight, shooting;
-        public PictureBox playerPictureBox;
+        public PictureBox PictureBox;
 
         public void MoveLeft()
         {
-            if (moveLeft == true && playerPictureBox.Left > 0)
-            playerPictureBox.Left -= speed;
+            if (moveLeft == true && PictureBox.Left > 0)
+            PictureBox.Left -= speed;
         }
 
         public void MoveRight()
         {
-            if (moveRight == true && playerPictureBox.Left < (GameForm.formWidth - playerPictureBox.Width))
-            playerPictureBox.Left += speed;
+            if (moveRight == true && PictureBox.Left < (900-65))//(GameForm.formWidth - PictureBox.Width))
+            PictureBox.Left += speed;
         }
 
         public void IntitializeShooting(PictureBox bullet)
         { 
             shooting = true;
 
-            bullet.Top = playerPictureBox.Top - (bullet.Height + 5);
-            bullet.Left = playerPictureBox.Left + (playerPictureBox.Width / 2);
+            bullet.Top = PictureBox.Top - (bullet.Height + 5);
+            bullet.Left = PictureBox.Left + (PictureBox.Width / 2);
 
         }
 
