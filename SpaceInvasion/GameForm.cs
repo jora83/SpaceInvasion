@@ -36,9 +36,12 @@ namespace SpaceInvasion
             scoreText.Text = "Score: " + score.ToString();
             healthText.Text = "Health: " + player.health.ToString();
 
-            enemy1.Top += enemySpeed;
-            enemy2.Top += enemySpeed;
-            enemy3.Top += enemySpeed;
+            //enemy1.Top += enemySpeed;
+            //enemy2.Top += enemySpeed;
+            //enemy3.Top += enemySpeed;
+
+            Enemy.Spawn();
+            Enemy.Move();
 
             foreach (Control x in this.Controls)
             {
@@ -76,7 +79,7 @@ namespace SpaceInvasion
             player.MoveRight();
 
             player.Shoot(bullet);
-            
+
         }
 
         private void KeyIsDown(object sender, KeyEventArgs e)

@@ -2,6 +2,7 @@ namespace SpaceInvasion
 {
     public partial class MainForm : Form
     {
+        public GameForm gameForm = new GameForm();
         public MainForm()
         {
             InitializeComponent();
@@ -12,7 +13,7 @@ namespace SpaceInvasion
         private void startButton_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GameForm gameForm = new GameForm();
+            
             gameForm.Show();
         }
 
