@@ -23,6 +23,7 @@ namespace SpaceInvasion
         int enemyCounter = 100;
         int enemyLimit = 100;
 
+        List<PictureBox> enemyList = new List<PictureBox>();
         List<PictureBox> enemyRemover = new List<PictureBox>();
 
         Random rnd = new Random();
@@ -198,8 +199,8 @@ namespace SpaceInvasion
             //    }
             //}
 
-            //if (playerHealth <= 0)
-            //GameOver();
+            if (player.health < 0)
+                GameOver();
 
             player.MoveLeft();
 
@@ -256,6 +257,7 @@ namespace SpaceInvasion
                 Image = Properties.Resources.invader1
             };
             newEnemy.Refresh();
+            enemyList.Add(newEnemy);
             Controls.Add(newEnemy);
         }
 
@@ -286,11 +288,31 @@ namespace SpaceInvasion
 
             scoreText.Text = "Score: " + score.ToString();
 
+            
+
         }
 
         private void GameOver()
         {
             isGameOver = true;
+            foreach (PictureBox x in enemyList)
+            {
+                if (x is PictureBox && x.Tag != null && x.Tag.ToString() == "enemy")
+                {
+                    Controls.Remove(x);
+                }
+            }
+            enemyList.Clear();
+            foreach (Control y in this.Controls)
+            {
+                if (y is PictureBox && y.Tag != null && y.Tag.ToString() == "enemy")
+                {
+                    
+                    enemyRemover.Add((PictureBox)y);
+                    Controls.Remove(y);
+                }
+            }
+            enemyRemover.Clear();
             gameTimer.Stop();
             scoreText.Text += Environment.NewLine + "Game Over" + Environment.NewLine + "Press enter to try again";
         }
