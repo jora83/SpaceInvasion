@@ -119,7 +119,7 @@
             // 
             // gameTimer
             // 
-            gameTimer.Interval = 20;
+            gameTimer.Interval = 16;
             gameTimer.Tick += mainGameTimerEvent;
             // 
             // healthText

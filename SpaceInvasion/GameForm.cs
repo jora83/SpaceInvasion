@@ -30,12 +30,7 @@ namespace SpaceInvasion
 
         Player player = new Player();
 
-        List<PictureBox> enemies = new List<PictureBox>();
-
-        //Enemy enemy1 = new Enemy();
-        //Enemy enemy2 = new Enemy();
-        //Enemy enemy3 = new Enemy();
-
+        //List<PictureBox> enemies = new List<PictureBox>();
 
         public GameForm()
         {
@@ -43,127 +38,55 @@ namespace SpaceInvasion
             InitializeGame();
 
             player.PictureBox = playerPictureBox;
-
-            //enemy1.PictureBox = enemyPictureBox1;
-            //enemy2.PictureBox = enemyPictureBox2;
-            //enemy3.PictureBox = enemyPictureBox3;
-
-            //enemies.Add(enemy1);
-            //enemies.Add(enemy2);
-            //enemies.Add(enemy3);
         }
 
         private void mainGameTimerEvent(object sender, EventArgs e)
         {
+            if (player.health < 0)
+                GameOver();
 
+
+            //enemy class
             //Enemy.counter--;
-            enemyCounter--;
-
-            if (enemyCounter == 0)
-            {
-                SpawnEnemies();
-                enemyCounter = enemyLimit;
-                if (score > 0)
-                {
-                    if (score % 100 == 0)
-                    {
-                        enemyLimit = 2;
-                        enemySpeed = 20;
-                    }
-                }
+            
+            //if(Enemy.counter == 0)
+            //{
+                ///////Enemy.Spawn();
                 
-                //Enemy.Spawn();
-                //Enemy.counter = Enemy.limit;
-            }
+            Controls.Add(Enemy.Spawn());
+              //  Enemy.counter = Enemy.limit;
+            //}
 
-            //foreach (PictureBox pb in Enemy.PictureBoxes)
+            //foreach (PictureBox pb in Enemy.enemyList) 
             //{
             //    Controls.Add(pb);
             //}
 
+            //Enemy.enemyList.Clear();
+
+
+            //enemy class
+
+            //enemyCounter--;
+
+            //if (enemyCounter == 0)
+            //{
+            //    SpawnEnemies();
+            //    enemyCounter = enemyLimit;
+            //}
 
             scoreText.Text = "Score: " + score.ToString();
             healthText.Text = "Health: " + player.health.ToString();
 
-            //enemy1.Top += enemySpeed;
-            //enemy2.Top += enemySpeed;
-            //enemy3.Top += enemySpeed;
-
-            //enemy1.Move();
-            //enemy2.Move();
-            //enemy3.Move();
-
-            foreach (Control y in this.Controls)
-            {
-                if (y is PictureBox && y.Tag != null && y.Tag.ToString() == "enemy")
-                {
-                    y.Top += enemySpeed;
-                }
-            }
-
-            //foreach (PictureBox x in Enemy.PictureBoxes)
+            //foreach (Control y in this.Controls)
             //{
-            //    if (x is PictureBox && x.Tag != null && x.Tag.ToString() == "enemy")
+            //    if (y is PictureBox && y.Tag != null && y.Tag.ToString() == "enemy")
             //    {
-            //        if (x.Top > formHeight)
-            //        {
-            //            player.health -= 10;
-            //            //x.Left = rnd.Next(8, 740);
-            //            //x.Top = rnd.Next(200, 400) * -1;
-            //            enemyRemover.Add((PictureBox)x);
-            //        }
-
-            //        if (bullet.Bounds.IntersectsWith(x.Bounds))
-            //        {
-            //            score += 10;
-            //            //x.Left = rnd.Next(8, 740);
-            //            //x.Top = rnd.Next(200, 500) * -1;
-            //            enemyRemover.Add((PictureBox)x);
-            //            player.shooting = false;
-            //        }
-
-            //        if (player.PictureBox.Bounds.IntersectsWith(x.Bounds))
-            //        {
-            //            player.health -= 5;
-            //            //x.Left = rnd.Next(8, 740);
-            //            //x.Top = rnd.Next(200, 600) * -1;
-            //            enemyRemover.Add((PictureBox)x);
-            //        }
-
+            //        y.Top += enemySpeed;
             //    }
             //}
 
-            foreach (Control x in this.Controls)
-            {
-                if (x is PictureBox && x.Tag != null && x.Tag.ToString() == "enemy")
-                {
-                    if (x.Top > formHeight)
-                    {
-                        player.health -= 10;
-                        //x.Left = rnd.Next(8, 740);
-                        //x.Top = rnd.Next(200, 400) * -1;
-                        enemyRemover.Add((PictureBox)x);
-                    }
-
-                    if (bullet.Bounds.IntersectsWith(x.Bounds))
-                    {
-                        score += 10;
-                        //x.Left = rnd.Next(8, 740);
-                        //x.Top = rnd.Next(200, 500) * -1;
-                        enemyRemover.Add((PictureBox)x);
-                        player.shooting = false;
-                    }
-
-                    if (player.PictureBox.Bounds.IntersectsWith(x.Bounds))
-                    {
-                        player.health -= 5;
-                        //x.Left = rnd.Next(8, 740);
-                        //x.Top = rnd.Next(200, 600) * -1;
-                        enemyRemover.Add((PictureBox)x);
-                    }
-
-                }
-            }
+            EnemyBehavior();
 
             foreach (PictureBox enemy in enemyRemover)
             {
@@ -171,36 +94,6 @@ namespace SpaceInvasion
             }
 
             enemyRemover.Clear();
-            //foreach (Enemy x in enemies)
-            //{
-            //    if (x.PictureBox is PictureBox && x.PictureBox.Tag != null && x.PictureBox.Tag.ToString() == "enemy")
-            //    {
-            //        if (x.PictureBox.Top > formHeight)
-            //        {
-            //            player.health -= 10;
-            //            x.PictureBox.Left = rnd.Next(8, 740);
-            //            x.PictureBox.Top = rnd.Next(0, 200) * -1;
-            //        }
-
-            //        if (bullet.Bounds.IntersectsWith(x.PictureBox.Bounds))
-            //        {
-            //            score += 10;
-            //            x.PictureBox.Left = rnd.Next(8, 740);
-            //            x.PictureBox.Top = rnd.Next(0, 200) * -1;
-            //            player.shooting = false;
-            //        }
-
-            //        if (player.PictureBox.Bounds.IntersectsWith(x.PictureBox.Bounds))
-            //        {
-            //            player.health -= 5;
-            //            x.PictureBox.Left = rnd.Next(8, 740);
-            //            x.PictureBox.Top = rnd.Next(0, 200) * -1;
-            //        }
-            //    }
-            //}
-
-            if (player.health < 0)
-                GameOver();
 
             player.MoveLeft();
 
@@ -245,41 +138,29 @@ namespace SpaceInvasion
             }
         }
 
-        public void SpawnEnemies()
-        {
-            PictureBox newEnemy = new PictureBox()
-            {
-                Tag = "enemy",
-                Width = 125,
-                Height = 113,
-                Left = rnd.Next(8, 740),
-                Top = rnd.Next(300, 500) * -1,
-                Image = Properties.Resources.invader1
-            };
-            newEnemy.Refresh();
-            enemyList.Add(newEnemy);
-            Controls.Add(newEnemy);
-        }
+        //public void SpawnEnemies()
+        //{
+        //    PictureBox newEnemy = new PictureBox()
+        //    {
+        //        Tag = "enemy",
+        //        Width = 65,
+        //        Height = 55,
+        //        Left = rnd.Next(8, 740),
+        //        Top = rnd.Next(300, 500) * -1,
+        //        Image = Properties.Resources.invader1,
+        //        SizeMode = PictureBoxSizeMode.StretchImage
+        //    };
+        //    newEnemy.Refresh();
+        //    enemyList.Add(newEnemy);
+        //    Controls.Add(newEnemy);
+        //}
 
         private void InitializeGame()
         {
             gameTimer.Start();
             enemySpeed = 5;
 
-
             player.health = 100;
-
-            //enemyPictureBox1.Left = rnd.Next(8, 740);
-            //enemyPictureBox2.Left = rnd.Next(8, 740);
-            //enemyPictureBox3.Left = rnd.Next(8, 740);
-
-            //enemyPictureBox1.Top = rnd.Next(500, 700) * -1;
-            //enemyPictureBox2.Top = rnd.Next(600, 900) * -1;
-            //enemyPictureBox3.Top = rnd.Next(700, 1200) * -1;
-
-            //enemy1.Spawn();
-            //enemy2.Spawn();
-            //enemy3.Spawn();
 
             score = 0;
             player.bulletSpeed = 0;
@@ -287,9 +168,38 @@ namespace SpaceInvasion
             player.shooting = false;
 
             scoreText.Text = "Score: " + score.ToString();
+        }
 
-            
 
+        private void EnemyBehavior()
+        {
+            foreach (Control enemy in this.Controls)
+            {
+                if (enemy is PictureBox && enemy.Tag != null && enemy.Tag.ToString() == "enemy")
+                {
+                    enemy.Top += enemySpeed;
+
+                    if (enemy.Top > formHeight)
+                    {
+                        player.health -= 10;
+                        enemyRemover.Add((PictureBox)enemy);
+                    }
+
+                    if (bullet.Bounds.IntersectsWith(enemy.Bounds))
+                    {
+                        score += 10;
+                        enemyRemover.Add((PictureBox)enemy);
+                        player.shooting = false;
+                    }
+
+                    if (player.PictureBox.Bounds.IntersectsWith(enemy.Bounds))
+                    {
+                        player.health -= 10;
+                        enemyRemover.Add((PictureBox)enemy);
+                    }
+
+                }
+            }
         }
 
         private void GameOver()
@@ -307,8 +217,6 @@ namespace SpaceInvasion
             {
                 if (y is PictureBox && y.Tag != null && y.Tag.ToString() == "enemy")
                 {
-                    
-                    enemyRemover.Add((PictureBox)y);
                     Controls.Remove(y);
                 }
             }
