@@ -10,7 +10,7 @@ namespace SpaceInvasion.Scripts
     public static class Enemy
     {
         static Random rnd = new Random();
-        public static int speed = 3;
+        public static int speed = 5;
         public static int counter = 100;
         public static int limit = 100;
         //public static List<PictureBox> enemyList = new List<PictureBox>();

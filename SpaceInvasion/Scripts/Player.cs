@@ -17,16 +17,13 @@ namespace SpaceInvasion.Scripts
         public bool moveLeft, moveRight, shooting;
         public PictureBox PictureBox;
 
-        public void MoveLeft()
+        public void Move()
         {
             if (moveLeft == true && PictureBox.Left > 0)
-            PictureBox.Left -= speed;
-        }
+                PictureBox.Left -= speed;
 
-        public void MoveRight()
-        {
-            if (moveRight == true && PictureBox.Left < (900-65))//(GameForm.formWidth - PictureBox.Width))
-            PictureBox.Left += speed;
+            if (moveRight == true && PictureBox.Left < (900 - 65))//(GameForm.formWidth - PictureBox.Width))
+                PictureBox.Left += speed;
         }
 
         public void IntitializeShooting(PictureBox bullet)

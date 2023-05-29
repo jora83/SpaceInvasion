@@ -17,20 +17,8 @@ namespace SpaceInvasion
         public static int formHeight = 700;
         bool isGameOver;
         int score;
-        int bulletSpeed;
-        int enemySpeed;
-
-        int enemyCounter = 100;
-        int enemyLimit = 100;
-
-        List<PictureBox> enemyList = new List<PictureBox>();
-        List<PictureBox> enemyRemover = new List<PictureBox>();
-
-        Random rnd = new Random();
 
         Player player = new Player();
-
-        //List<PictureBox> enemies = new List<PictureBox>();
 
         public GameForm()
         {
@@ -42,62 +30,15 @@ namespace SpaceInvasion
 
         private void mainGameTimerEvent(object sender, EventArgs e)
         {
-            if (player.health < 0)
-                GameOver();
-
-
-            //enemy class
-            //Enemy.counter--;
+            CheckForGameOver();
             
-            //if(Enemy.counter == 0)
-            //{
-                ///////Enemy.Spawn();
-                
             Controls.Add(Enemy.Spawn());
-              //  Enemy.counter = Enemy.limit;
-            //}
 
-            //foreach (PictureBox pb in Enemy.enemyList) 
-            //{
-            //    Controls.Add(pb);
-            //}
-
-            //Enemy.enemyList.Clear();
-
-
-            //enemy class
-
-            //enemyCounter--;
-
-            //if (enemyCounter == 0)
-            //{
-            //    SpawnEnemies();
-            //    enemyCounter = enemyLimit;
-            //}
-
-            scoreText.Text = "Score: " + score.ToString();
-            healthText.Text = "Health: " + player.health.ToString();
-
-            //foreach (Control y in this.Controls)
-            //{
-            //    if (y is PictureBox && y.Tag != null && y.Tag.ToString() == "enemy")
-            //    {
-            //        y.Top += enemySpeed;
-            //    }
-            //}
+            UpdateHealthAndScore();
 
             EnemyBehavior();
 
-            foreach (PictureBox enemy in enemyRemover)
-            {
-                Controls.Remove(enemy);
-            }
-
-            enemyRemover.Clear();
-
-            player.MoveLeft();
-
-            player.MoveRight();
+            player.Move();
 
             player.Shoot(bullet);
 
@@ -138,27 +79,22 @@ namespace SpaceInvasion
             }
         }
 
-        //public void SpawnEnemies()
-        //{
-        //    PictureBox newEnemy = new PictureBox()
-        //    {
-        //        Tag = "enemy",
-        //        Width = 65,
-        //        Height = 55,
-        //        Left = rnd.Next(8, 740),
-        //        Top = rnd.Next(300, 500) * -1,
-        //        Image = Properties.Resources.invader1,
-        //        SizeMode = PictureBoxSizeMode.StretchImage
-        //    };
-        //    newEnemy.Refresh();
-        //    enemyList.Add(newEnemy);
-        //    Controls.Add(newEnemy);
-        //}
+        private void CheckForGameOver()
+        {
+            if (player.health < 0)
+                GameOver();
+        }
+
+        private void UpdateHealthAndScore()
+        {
+            scoreText.Text = "Score: " + score.ToString();
+            healthText.Text = "Health: " + player.health.ToString();
+        }
 
         private void InitializeGame()
         {
             gameTimer.Start();
-            enemySpeed = 5;
+            Enemy.speed = 5;
 
             player.health = 100;
 
@@ -170,32 +106,31 @@ namespace SpaceInvasion
             scoreText.Text = "Score: " + score.ToString();
         }
 
-
         private void EnemyBehavior()
         {
             foreach (Control enemy in this.Controls)
             {
                 if (enemy is PictureBox && enemy.Tag != null && enemy.Tag.ToString() == "enemy")
                 {
-                    enemy.Top += enemySpeed;
+                    enemy.Top += Enemy.speed;
 
                     if (enemy.Top > formHeight)
                     {
                         player.health -= 10;
-                        enemyRemover.Add((PictureBox)enemy);
+                        Controls.Remove(enemy);
                     }
 
                     if (bullet.Bounds.IntersectsWith(enemy.Bounds))
                     {
                         score += 10;
-                        enemyRemover.Add((PictureBox)enemy);
+                        Controls.Remove(enemy);
                         player.shooting = false;
                     }
 
                     if (player.PictureBox.Bounds.IntersectsWith(enemy.Bounds))
                     {
                         player.health -= 10;
-                        enemyRemover.Add((PictureBox)enemy);
+                        Controls.Remove(enemy);
                     }
 
                 }
@@ -205,14 +140,6 @@ namespace SpaceInvasion
         private void GameOver()
         {
             isGameOver = true;
-            foreach (PictureBox x in enemyList)
-            {
-                if (x is PictureBox && x.Tag != null && x.Tag.ToString() == "enemy")
-                {
-                    Controls.Remove(x);
-                }
-            }
-            enemyList.Clear();
             foreach (Control y in this.Controls)
             {
                 if (y is PictureBox && y.Tag != null && y.Tag.ToString() == "enemy")
@@ -220,7 +147,6 @@ namespace SpaceInvasion
                     Controls.Remove(y);
                 }
             }
-            enemyRemover.Clear();
             gameTimer.Stop();
             scoreText.Text += Environment.NewLine + "Game Over" + Environment.NewLine + "Press enter to try again";
         }
