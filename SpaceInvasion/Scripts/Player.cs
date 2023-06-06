@@ -12,10 +12,32 @@ namespace SpaceInvasion.Scripts
     public class Player
     {
         public int health = 100;
-        int speed = 12;
+        int width = 65;
+        int height = 55;
+        int speed = 8;
         public int bulletSpeed = 20;
         public bool moveLeft, moveRight, shooting;
         public PictureBox PictureBox;
+
+
+        public Player()
+        {
+            PictureBox = RenderPlayerPicturebox();
+        }
+
+        public PictureBox RenderPlayerPicturebox()
+        {
+            return new PictureBox()
+            {
+                Tag = "player",
+                Width = width,
+                Height = height,
+                Left = GameForm.formWidth / 2 - width,
+                Top = GameForm.formHeight - height * 2,
+                Image = Properties.Resources.player,
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };
+        }
 
         public void Move()
         {

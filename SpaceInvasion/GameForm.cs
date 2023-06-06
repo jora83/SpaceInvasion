@@ -16,7 +16,7 @@ namespace SpaceInvasion
         public static int formWidth = 900;
         public static int formHeight = 700;
         bool isGameOver;
-        int score;
+        public static int score;
 
         Player player = new Player();
 
@@ -25,13 +25,14 @@ namespace SpaceInvasion
             InitializeComponent();
             InitializeGame();
 
-            player.PictureBox = playerPictureBox;
+            Controls.Add(player.PictureBox);
+            //player.PictureBox = playerPictureBox;
         }
 
         private void mainGameTimerEvent(object sender, EventArgs e)
         {
             CheckForGameOver();
-            
+
             Controls.Add(Enemy.Spawn());
 
             UpdateHealthAndScore();
@@ -108,6 +109,9 @@ namespace SpaceInvasion
 
         private void EnemyBehavior()
         {
+            label1.Text = Enemy.limit.ToString() + " " + Enemy.speed.ToString(); 
+           
+
             foreach (Control enemy in this.Controls)
             {
                 if (enemy is PictureBox && enemy.Tag != null && enemy.Tag.ToString() == "enemy")

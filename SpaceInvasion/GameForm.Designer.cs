@@ -38,6 +38,7 @@
             scoreText = new Label();
             gameTimer = new System.Windows.Forms.Timer(components);
             healthText = new Label();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)enemyPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)enemyPictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)enemyPictureBox3).BeginInit();
@@ -94,6 +95,7 @@
             playerPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             playerPictureBox.TabIndex = 3;
             playerPictureBox.TabStop = false;
+            playerPictureBox.Visible = false;
             // 
             // bullet
             // 
@@ -132,12 +134,22 @@
             healthText.TabIndex = 6;
             healthText.Text = "Health: 100";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(369, 31);
+            label1.Name = "label1";
+            label1.Size = new Size(97, 41);
+            label1.TabIndex = 7;
+            label1.Text = "label1";
+            // 
             // GameForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 100);
             ClientSize = new Size(882, 653);
+            Controls.Add(label1);
             Controls.Add(healthText);
             Controls.Add(scoreText);
             Controls.Add(bullet);
@@ -171,5 +183,6 @@
         private Label scoreText;
         private System.Windows.Forms.Timer gameTimer;
         private Label healthText;
+        private Label label1;
     }
 }

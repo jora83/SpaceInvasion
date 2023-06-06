@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace SpaceInvasion.Scripts
 {
@@ -16,7 +17,7 @@ namespace SpaceInvasion.Scripts
         //public static List<PictureBox> enemyList = new List<PictureBox>();
         public static List<PictureBox> Disposal = new List<PictureBox>();
         public static PictureBox newEnemy = new PictureBox();
-
+        
         //public static void Spawn()
         //{
         //    counter--;
@@ -40,6 +41,12 @@ namespace SpaceInvasion.Scripts
 
         public static PictureBox Spawn()
         {
+            if (GameForm.score > 0 && GameForm.score % 20 == 0)
+            {
+                Enemy.limit -= 5;
+                Enemy.speed++;
+            }
+
             counter--;
             if (counter == 0)
             {
