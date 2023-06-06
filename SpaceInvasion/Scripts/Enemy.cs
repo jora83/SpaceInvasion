@@ -14,7 +14,6 @@ namespace SpaceInvasion.Scripts
         public static int speed = 5;
         public static int counter = 100;
         public static int limit = 100;
-        //public static List<PictureBox> enemyList = new List<PictureBox>();
         public static List<PictureBox> Disposal = new List<PictureBox>();
         public static PictureBox newEnemy = new PictureBox();
         
@@ -39,14 +38,9 @@ namespace SpaceInvasion.Scripts
         //    }
         //}
 
-        public static PictureBox Spawn()
+        public static PictureBox? Spawn()
         {
-            if (GameForm.score > 0 && GameForm.score % 20 == 0)
-            {
-                Enemy.limit -= 5;
-                Enemy.speed++;
-            }
-
+            
             counter--;
             if (counter == 0)
             {
