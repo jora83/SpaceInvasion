@@ -37,7 +37,7 @@
             // startButton
             // 
             startButton.BackColor = Color.FromArgb(0, 192, 192);
-            startButton.Location = new Point(340, 178);
+            startButton.Location = new Point(350, 178);
             startButton.Margin = new Padding(6);
             startButton.Name = "startButton";
             startButton.Size = new Size(200, 60);
@@ -49,18 +49,18 @@
             // hiscoresButton
             // 
             hiscoresButton.BackColor = Color.FromArgb(0, 192, 192);
-            hiscoresButton.Location = new Point(340, 247);
+            hiscoresButton.Location = new Point(350, 247);
             hiscoresButton.Name = "hiscoresButton";
             hiscoresButton.Size = new Size(200, 60);
             hiscoresButton.TabIndex = 1;
             hiscoresButton.Text = "Hiscores";
             hiscoresButton.UseVisualStyleBackColor = false;
-            hiscoresButton.Click += hiscoresButton_Click_1;
+            hiscoresButton.Click += hiscoresButton_Click;
             // 
             // rulesButton
             // 
             rulesButton.BackColor = Color.FromArgb(0, 192, 192);
-            rulesButton.Location = new Point(340, 313);
+            rulesButton.Location = new Point(350, 313);
             rulesButton.Name = "rulesButton";
             rulesButton.Size = new Size(200, 60);
             rulesButton.TabIndex = 2;
@@ -71,7 +71,7 @@
             // exitButton
             // 
             exitButton.BackColor = Color.FromArgb(0, 192, 192);
-            exitButton.Location = new Point(340, 379);
+            exitButton.Location = new Point(350, 379);
             exitButton.Name = "exitButton";
             exitButton.Size = new Size(200, 60);
             exitButton.TabIndex = 3;

@@ -12,39 +12,35 @@ namespace SpaceInvasion.Scripts
     {
         static Random rnd = new Random();
         public static int speed = 5;
-        public static int counter = 100;
+        public static int frequency = 100;
         public static int limit = 100;
+        public static bool increaseSpeedAndFrequency;
         public static List<PictureBox> Disposal = new List<PictureBox>();
         public static PictureBox newEnemy = new PictureBox();
         
-        //public static void Spawn()
-        //{
-        //    counter--;
-        //    if (counter == 0)
-        //    {
-        //        newEnemy = new PictureBox()
-        //        {
-        //            Tag = "enemy",
-        //            Width = 65,
-        //            Height = 55,
-        //            Left = rnd.Next(8, 740),
-        //            Top = rnd.Next(300, 500) * -1,
-        //            Image = Properties.Resources.invader1,
-        //            SizeMode = PictureBoxSizeMode.StretchImage
-        //        };
-        //        newEnemy.Refresh();
-        //        enemyList.Add(newEnemy);
-        //        counter = limit;
-        //    }
-        //}
-
         public static PictureBox? Spawn()
         {
-            
-            counter--;
-            if (counter == 0)
+            //if (GameForm.score > 0 && GameForm.score % 10 == 0)
+            //{
+            //    Enemy.increaseSpeedAndFrequency = true;
+            //}
+
+            if (GameForm.score > 0 && GameForm.score % 100 == 0 && !Enemy.increaseSpeedAndFrequency)
             {
-                counter = limit;
+                Enemy.limit -= 5;
+                Enemy.speed++;
+                Enemy.increaseSpeedAndFrequency = true;
+            }
+
+            if(GameForm.score % 100 != 0)
+            {
+                Enemy.increaseSpeedAndFrequency = false;
+            }
+
+            frequency--;
+            if (frequency == 0)
+            {
+                frequency = limit;
                 return new PictureBox()
                 {
                     Tag = "enemy",

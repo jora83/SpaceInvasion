@@ -2,7 +2,8 @@ namespace SpaceInvasion
 {
     public partial class MainForm : Form
     {
-        public GameForm gameForm = new GameForm();
+        
+
         public MainForm()
         {
             InitializeComponent();
@@ -12,14 +13,16 @@ namespace SpaceInvasion
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            GameForm gameForm = new GameForm();
             this.Hide();
-            
-            gameForm.Show();
+            gameForm.Show();    
         }
 
-        private void hiscoresButton_Click_1(object sender, EventArgs e)
+        private void hiscoresButton_Click(object sender, EventArgs e)
         {
-
+            HiscoresForm hiscoresForm = new HiscoresForm();
+            this.Hide();
+            hiscoresForm.Show();
         }
 
         private void rulesButton_Click(object sender, EventArgs e)
@@ -31,5 +34,7 @@ namespace SpaceInvasion
         {
             Application.Exit();
         }
+
+        
     }
 }

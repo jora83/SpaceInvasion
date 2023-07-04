@@ -12,9 +12,10 @@ namespace SpaceInvasion.Scripts
     public class Player
     {
         public int health = 100;
-        int width = 65;
-        int height = 55;
+        public int width = 65;
+        public int height = 55;
         int speed = 8;
+        
         public int bulletSpeed = 20;
         public bool moveLeft, moveRight, shooting;
         public PictureBox PictureBox;
@@ -43,9 +44,10 @@ namespace SpaceInvasion.Scripts
         {
             if (moveLeft == true && PictureBox.Left > 0)
                 PictureBox.Left -= speed;
-
-            if (moveRight == true && PictureBox.Left < (900 - 65))//(GameForm.formWidth - PictureBox.Width))
+           
+            if (moveRight == true && PictureBox.Left < (900 - 85))//(GameForm.formWidth - PictureBox.Width))
                 PictureBox.Left += speed;
+               
         }
 
         public void IntitializeShooting(PictureBox bullet)

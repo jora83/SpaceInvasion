@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,10 +14,12 @@ namespace SpaceInvasion
 {
     public partial class GameForm : Form
     {
+        PauseUserControl pauseUserControl = new PauseUserControl();
         public static int formWidth = 900;
         public static int formHeight = 700;
-        bool isGameOver;
+        public static bool isGameOver, isGamePaused, hasExited;
         public static int score;
+
 
         Player player = new Player();
 
@@ -24,9 +27,8 @@ namespace SpaceInvasion
         {
             InitializeComponent();
             InitializeGame();
-
             Controls.Add(player.PictureBox);
-            //player.PictureBox = playerPictureBox;
+
         }
 
         private void mainGameTimerEvent(object sender, EventArgs e)
@@ -43,6 +45,7 @@ namespace SpaceInvasion
 
             player.Shoot(bullet);
 
+            HasExited();
         }
 
         private void KeyIsDown(object sender, KeyEventArgs e)
@@ -74,15 +77,56 @@ namespace SpaceInvasion
                 player.IntitializeShooting(bullet);
             }
 
+            if (e.KeyCode == Keys.Escape)
+            {
+                Pause();
+            }
+
             if (e.KeyCode == Keys.Enter && isGameOver == true)
             {
                 InitializeGame();
             }
         }
 
+        /// <summary>
+        /// PUT THE BUTTONS IN THE GAME FORM DONT USE A USER CONTROL
+        /// </summary>
+        private void HasExited()
+        {
+            if (hasExited)
+            {
+                this.Close();
+            }
+        }
+
+        private void Pause()
+        {
+            if (isGamePaused)
+            {
+                gameTimer.Stop();
+                pauseBackground.Visible = true;
+                resumeLabel.Visible = true;
+                resumeLabel.BringToFront();
+                exitButton.BringToFront();
+                exitButton.TabStop = true;
+                exitButton.Enabled = true;
+                exitButton.Visible = true;
+            }
+            else
+            {
+                gameTimer.Start();
+                pauseBackground.Visible = false;
+                resumeLabel.Visible = false;
+                exitButton.TabStop = false;
+                exitButton.Enabled = false;
+                exitButton.Visible = false;
+            }
+            isGamePaused = !isGamePaused;
+        }
+
         private void CheckForGameOver()
         {
-            if (player.health < 0)
+            if (player.health <= 0)
                 GameOver();
         }
 
@@ -95,8 +139,11 @@ namespace SpaceInvasion
         private void InitializeGame()
         {
             gameTimer.Start();
+            gameOverLabel.Visible = false;
             Enemy.speed = 5;
-
+            Enemy.frequency = 100;
+            Enemy.limit = 100;
+            player.PictureBox.Left = GameForm.formWidth / 2 - player.width;
             player.health = 100;
 
             score = 0;
@@ -109,8 +156,7 @@ namespace SpaceInvasion
 
         private void EnemyBehavior()
         {
-            label1.Text = Enemy.limit.ToString() + " " + Enemy.speed.ToString(); 
-           
+            label1.Text = Enemy.limit.ToString() + " " + Enemy.speed.ToString();
 
             foreach (Control enemy in this.Controls)
             {
@@ -151,8 +197,18 @@ namespace SpaceInvasion
                     Controls.Remove(y);
                 }
             }
+            gameOverLabel.Text = Environment.NewLine + "Game Over!" + Environment.NewLine + "Your score is: " + score.ToString()
+                + Environment.NewLine + "Press enter to try again" + Environment.NewLine + "Press exit to go to the Main Menu";
+            gameOverLabel.Visible = true;
             gameTimer.Stop();
-            scoreText.Text += Environment.NewLine + "Game Over" + Environment.NewLine + "Press enter to try again";
+
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            MainForm mainForm = new MainForm();
+            mainForm.Show();
+            this.Hide();
         }
     }
 }

@@ -39,11 +39,16 @@
             gameTimer = new System.Windows.Forms.Timer(components);
             healthText = new Label();
             label1 = new Label();
+            gameOverLabel = new Label();
+            exitButton = new Button();
+            pauseBackground = new PictureBox();
+            resumeLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)enemyPictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)enemyPictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)enemyPictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)playerPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bullet).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pauseBackground).BeginInit();
             SuspendLayout();
             // 
             // enemyPictureBox1
@@ -143,12 +148,62 @@
             label1.TabIndex = 7;
             label1.Text = "label1";
             // 
+            // gameOverLabel
+            // 
+            gameOverLabel.AutoSize = true;
+            gameOverLabel.Dock = DockStyle.Fill;
+            gameOverLabel.Location = new Point(0, 0);
+            gameOverLabel.Name = "gameOverLabel";
+            gameOverLabel.Size = new Size(33, 41);
+            gameOverLabel.TabIndex = 8;
+            gameOverLabel.Text = "a";
+            gameOverLabel.TextAlign = ContentAlignment.MiddleCenter;
+            gameOverLabel.Visible = false;
+            // 
+            // exitButton
+            // 
+            exitButton.Enabled = false;
+            exitButton.Location = new Point(350, 313);
+            exitButton.Name = "exitButton";
+            exitButton.Size = new Size(200, 60);
+            exitButton.TabIndex = 12;
+            exitButton.TabStop = false;
+            exitButton.Text = "Exit";
+            exitButton.UseVisualStyleBackColor = true;
+            exitButton.Visible = false;
+            exitButton.Click += exitButton_Click;
+            // 
+            // pauseBackground
+            // 
+            pauseBackground.BackColor = Color.FromArgb(30, 30, 100);
+            pauseBackground.Dock = DockStyle.Right;
+            pauseBackground.Location = new Point(716, 0);
+            pauseBackground.Name = "pauseBackground";
+            pauseBackground.Size = new Size(166, 653);
+            pauseBackground.TabIndex = 11;
+            pauseBackground.TabStop = false;
+            pauseBackground.Visible = false;
+            // 
+            // resumeLabel
+            // 
+            resumeLabel.AutoSize = true;
+            resumeLabel.Location = new Point(220, 269);
+            resumeLabel.Name = "resumeLabel";
+            resumeLabel.Size = new Size(463, 41);
+            resumeLabel.TabIndex = 12;
+            resumeLabel.Text = "Press escape to resume the game";
+            resumeLabel.Visible = false;
+            // 
             // GameForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 100);
             ClientSize = new Size(882, 653);
+            Controls.Add(resumeLabel);
+            Controls.Add(pauseBackground);
+            Controls.Add(exitButton);
+            Controls.Add(gameOverLabel);
             Controls.Add(label1);
             Controls.Add(healthText);
             Controls.Add(scoreText);
@@ -169,6 +224,7 @@
             ((System.ComponentModel.ISupportInitialize)enemyPictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)playerPictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)bullet).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pauseBackground).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -184,5 +240,9 @@
         private System.Windows.Forms.Timer gameTimer;
         private Label healthText;
         private Label label1;
+        private Label gameOverLabel;
+        private Button exitButton;
+        private PictureBox pauseBackground;
+        private Label resumeLabel;
     }
 }
