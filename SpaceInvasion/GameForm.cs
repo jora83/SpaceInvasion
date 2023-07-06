@@ -31,6 +31,7 @@ namespace SpaceInvasion
 
         }
 
+
         private void mainGameTimerEvent(object sender, EventArgs e)
         {
             CheckForGameOver();
@@ -156,7 +157,8 @@ namespace SpaceInvasion
 
         private void EnemyBehavior()
         {
-            label1.Text = Enemy.limit.ToString() + " " + Enemy.speed.ToString();
+            //label1.Text = Enemy.limit.ToString() + " " + Enemy.speed.ToString();
+            label1.Text = EnterUserForm.username;
 
             foreach (Control enemy in this.Controls)
             {
@@ -202,6 +204,9 @@ namespace SpaceInvasion
             gameOverLabel.Visible = true;
             gameTimer.Stop();
 
+            User user = new User();
+            user.Username = EnterUserForm.username;
+            user.Score = score;
         }
 
         private void exitButton_Click(object sender, EventArgs e)

@@ -13,9 +13,13 @@ namespace SpaceInvasion
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            GameForm gameForm = new GameForm();
+            //GameForm gameForm = new GameForm();
+            //this.Hide();
+            //gameForm.Show();    
+
+            EnterUserForm enterUserForm = new EnterUserForm();
             this.Hide();
-            gameForm.Show();    
+            enterUserForm.Show();
         }
 
         private void hiscoresButton_Click(object sender, EventArgs e)
