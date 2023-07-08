@@ -29,44 +29,26 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            dataGridView1 = new DataGridView();
             playerBindingSource = new BindingSource(components);
-            UserColumn = new DataGridViewTextBoxColumn();
-            ScoreColumn = new DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            dataGridView1 = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)playerBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { UserColumn, ScoreColumn });
-            dataGridView1.DataSource = playerBindingSource;
-            dataGridView1.Location = new Point(271, 94);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 70;
-            dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(323, 102);
-            dataGridView1.TabIndex = 0;
             // 
             // playerBindingSource
             // 
             playerBindingSource.DataSource = typeof(Scripts.Player);
             // 
-            // UserColumn
+            // dataGridView1
             // 
-            UserColumn.HeaderText = "User";
-            UserColumn.MinimumWidth = 6;
-            UserColumn.Name = "UserColumn";
-            UserColumn.Width = 125;
-            // 
-            // ScoreColumn
-            // 
-            ScoreColumn.HeaderText = "Score";
-            ScoreColumn.MinimumWidth = 6;
-            ScoreColumn.Name = "ScoreColumn";
-            ScoreColumn.Width = 125;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(209, 109);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.RowTemplate.Height = 29;
+            dataGridView1.Size = new Size(500, 500);
+            dataGridView1.TabIndex = 0;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // HiscoresForm
             // 
@@ -76,20 +58,17 @@
             ClientSize = new Size(882, 653);
             Controls.Add(dataGridView1);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            Margin = new Padding(6, 6, 6, 6);
+            Margin = new Padding(6);
             Name = "HiscoresForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HiscoresForm";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)playerBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn UserColumn;
-        private DataGridViewTextBoxColumn ScoreColumn;
         private BindingSource playerBindingSource;
+        private DataGridView dataGridView1;
     }
 }

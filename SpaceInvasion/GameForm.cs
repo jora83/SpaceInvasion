@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace SpaceInvasion
 {
@@ -202,11 +203,26 @@ namespace SpaceInvasion
             gameOverLabel.Text = Environment.NewLine + "Game Over!" + Environment.NewLine + "Your score is: " + score.ToString()
                 + Environment.NewLine + "Press enter to try again" + Environment.NewLine + "Press exit to go to the Main Menu";
             gameOverLabel.Visible = true;
+            WriteUserToFile();
             gameTimer.Stop();
 
-            User user = new User();
-            user.Username = EnterUserForm.username;
-            user.Score = score;
+            //User user = new User();
+            //user.Username = EnterUserForm.username;
+            //user.Score = score;
+        }
+
+        private void WriteUserToFile()
+        {
+            StreamWriter writer = null;
+            //var path = Path.Combine(Directory.GetCurrentDirectory(), "\\Hiscores.txt");
+            //string path =(@"..\..\Hiscores.txt");
+            string path = @"C:\\Users\\joraa\\source\\repos\\SpaceInvasion\\SpaceInvasion\\Hiscores.txt";
+            
+            writer = new StreamWriter(path);
+            writer.WriteLine(EnterUserForm.username + " " + score);
+            
+            writer.Close();
+            
         }
 
         private void exitButton_Click(object sender, EventArgs e)

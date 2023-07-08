@@ -8,7 +8,6 @@ namespace SpaceInvasion.Scripts
 {
     public class User
     {
-        public int Place { get; set; }
         public string Username { get; set; }
         public int Score { get; set; }
 
