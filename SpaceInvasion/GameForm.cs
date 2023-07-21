@@ -15,11 +15,11 @@ namespace SpaceInvasion
 {
     public partial class GameForm : Form
     {
-        PauseUserControl pauseUserControl = new PauseUserControl();
         public static int formWidth = 900;
         public static int formHeight = 700;
         public static bool isGameOver, isGamePaused, hasExited;
         public static int score;
+        HighscoreSystem HighscoreSystem = new HighscoreSystem();
 
 
         Player player = new Player();
@@ -146,13 +146,13 @@ namespace SpaceInvasion
             Enemy.frequency = 100;
             Enemy.limit = 100;
             player.PictureBox.Left = GameForm.formWidth / 2 - player.width;
-            player.health = 100;
+            player.health = 10;
 
             score = 0;
             player.bulletSpeed = 0;
             bullet.Left = -300;
             player.shooting = false;
-
+            HighscoreSystem.AddUser(EnterUserForm.username, score);
             scoreText.Text = "Score: " + score.ToString();
         }
 
@@ -203,27 +203,11 @@ namespace SpaceInvasion
             gameOverLabel.Text = Environment.NewLine + "Game Over!" + Environment.NewLine + "Your score is: " + score.ToString()
                 + Environment.NewLine + "Press enter to try again" + Environment.NewLine + "Press exit to go to the Main Menu";
             gameOverLabel.Visible = true;
-            WriteUserToFile();
+            
             gameTimer.Stop();
 
-            //User user = new User();
-            //user.Username = EnterUserForm.username;
-            //user.Score = score;
         }
 
-        private void WriteUserToFile()
-        {
-            StreamWriter writer = null;
-            //var path = Path.Combine(Directory.GetCurrentDirectory(), "\\Hiscores.txt");
-            //string path =(@"..\..\Hiscores.txt");
-            string path = @"C:\\Users\\joraa\\source\\repos\\SpaceInvasion\\SpaceInvasion\\Hiscores.txt";
-            
-            writer = new StreamWriter(path);
-            writer.WriteLine(EnterUserForm.username + " " + score);
-            
-            writer.Close();
-            
-        }
 
         private void exitButton_Click(object sender, EventArgs e)
         {

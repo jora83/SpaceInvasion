@@ -1,12 +1,15 @@
+using SpaceInvasion.Scripts;
+
 namespace SpaceInvasion
 {
     public partial class MainForm : Form
     {
-        
+        HighscoreSystem HighscoreSystem = new HighscoreSystem();
 
         public MainForm()
         {
             InitializeComponent();
+            HighscoreSystem.LoadHighscores();
         }
 
 
