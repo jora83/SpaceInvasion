@@ -30,25 +30,34 @@
         {
             components = new System.ComponentModel.Container();
             playerBindingSource = new BindingSource(components);
-            dataGridView1 = new DataGridView();
+            dataGridView = new DataGridView();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)playerBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // playerBindingSource
             // 
             playerBindingSource.DataSource = typeof(Scripts.Player);
             // 
-            // dataGridView1
+            // dataGridView
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(209, 109);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(500, 500);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Location = new Point(209, 109);
+            dataGridView.Name = "dataGridView";
+            dataGridView.RowHeadersWidth = 51;
+            dataGridView.RowTemplate.Height = 29;
+            dataGridView.Size = new Size(500, 500);
+            dataGridView.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(31, 95);
+            label1.Name = "label1";
+            label1.Size = new Size(97, 41);
+            label1.TabIndex = 1;
+            label1.Text = "label1";
             // 
             // HiscoresForm
             // 
@@ -56,19 +65,22 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 64);
             ClientSize = new Size(882, 653);
-            Controls.Add(dataGridView1);
+            Controls.Add(label1);
+            Controls.Add(dataGridView);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(6);
             Name = "HiscoresForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HiscoresForm";
             ((System.ComponentModel.ISupportInitialize)playerBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
         private BindingSource playerBindingSource;
-        private DataGridView dataGridView1;
+        private DataGridView dataGridView;
+        private Label label1;
     }
 }

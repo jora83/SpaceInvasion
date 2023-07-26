@@ -19,7 +19,7 @@ namespace SpaceInvasion
         public static int formHeight = 700;
         public static bool isGameOver, isGamePaused, hasExited;
         public static int score;
-        HighscoreSystem HighscoreSystem = new HighscoreSystem();
+        public HighscoreSystem highscoreSystem = new HighscoreSystem();
 
 
         Player player = new Player();
@@ -29,7 +29,7 @@ namespace SpaceInvasion
             InitializeComponent();
             InitializeGame();
             Controls.Add(player.PictureBox);
-
+            highscoreSystem.LoadHighscores();
         }
 
 
@@ -87,6 +87,11 @@ namespace SpaceInvasion
             if (e.KeyCode == Keys.Enter && isGameOver == true)
             {
                 InitializeGame();
+            }
+
+            if (e.KeyCode == Keys.Escape && isGameOver == true)
+            {
+                GoToMainMenu();
             }
         }
 
@@ -152,8 +157,15 @@ namespace SpaceInvasion
             player.bulletSpeed = 0;
             bullet.Left = -300;
             player.shooting = false;
-            HighscoreSystem.AddUser(EnterUserForm.username, score);
             scoreText.Text = "Score: " + score.ToString();
+        }
+
+        private void GoToMainMenu()
+        {
+            highscoreSystem.SaveHiscores();
+            MainForm mainForm = new MainForm();
+            mainForm.Show();
+            this.Hide();
         }
 
         private void EnemyBehavior()
@@ -203,7 +215,8 @@ namespace SpaceInvasion
             gameOverLabel.Text = Environment.NewLine + "Game Over!" + Environment.NewLine + "Your score is: " + score.ToString()
                 + Environment.NewLine + "Press enter to try again" + Environment.NewLine + "Press exit to go to the Main Menu";
             gameOverLabel.Visible = true;
-            
+            highscoreSystem.AddUser(EnterUserForm.username, score);
+            //HighscoreSystem.SaveHiscores();
             gameTimer.Stop();
 
         }
@@ -211,9 +224,7 @@ namespace SpaceInvasion
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
-            this.Hide();
+            GoToMainMenu();
         }
     }
 }

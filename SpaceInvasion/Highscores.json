@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SpaceInvasion
 {
-    class Highscores
-    {
-    }
+  "andre": 10,
+  "alex": 30,
+  "maricica": 50
 }

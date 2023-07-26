@@ -4,12 +4,11 @@ namespace SpaceInvasion
 {
     public partial class MainForm : Form
     {
+        
         HighscoreSystem HighscoreSystem = new HighscoreSystem();
-
         public MainForm()
         {
             InitializeComponent();
-            HighscoreSystem.LoadHighscores();
         }
 
 
@@ -39,6 +38,7 @@ namespace SpaceInvasion
 
         private void exitButton_Click(object sender, EventArgs e)
         {
+            
             Application.Exit();
         }
 

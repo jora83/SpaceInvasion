@@ -71,6 +71,7 @@
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(6);
             Name = "EnterUserForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "EnterUserForm";
             ResumeLayout(false);
             PerformLayout();

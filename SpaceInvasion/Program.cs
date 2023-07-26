@@ -1,3 +1,5 @@
+using SpaceInvasion.Scripts;
+
 namespace SpaceInvasion
 {
     internal static class Program
@@ -14,5 +16,7 @@ namespace SpaceInvasion
             Application.Run(new MainForm());
             //Application.Run(new GameForm());
         }
+
+       
     }
 }
