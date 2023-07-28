@@ -95,17 +95,6 @@ namespace SpaceInvasion
             }
         }
 
-        /// <summary>
-        /// PUT THE BUTTONS IN THE GAME FORM DONT USE A USER CONTROL
-        /// </summary>
-        private void HasExited()
-        {
-            if (hasExited)
-            {
-                this.Close();
-            }
-        }
-
         private void Pause()
         {
             if (isGamePaused)

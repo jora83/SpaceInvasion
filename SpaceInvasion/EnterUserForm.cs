@@ -25,5 +25,24 @@ namespace SpaceInvasion
             this.Hide();
             gameForm.Show();
         }
+
+        private void EnterButtonPress(object sender, EventArgs e)
+        {
+            StartGame();
+        }
+
+        private void EnterButtonUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                StartGame();
+        }
+
+        void StartGame()
+        { 
+            username = userTextBox.Text;
+            GameForm gameForm = new GameForm();
+            this.Hide();
+            gameForm.Show();
+        }
     }
 }

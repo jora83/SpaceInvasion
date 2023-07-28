@@ -39,6 +39,7 @@
             userTextBox.Name = "userTextBox";
             userTextBox.Size = new Size(250, 47);
             userTextBox.TabIndex = 0;
+            userTextBox.KeyUp += EnterButtonUp;
             // 
             // userLabel
             // 
