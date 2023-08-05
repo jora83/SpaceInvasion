@@ -32,7 +32,6 @@
             playerBindingSource = new BindingSource(components);
             dataGridView = new DataGridView();
             label1 = new Label();
-            backButton = new Button();
             ((System.ComponentModel.ISupportInitialize)playerBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
@@ -44,7 +43,7 @@
             // dataGridView
             // 
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(200, 67);
+            dataGridView.Location = new Point(209, 109);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
             dataGridView.RowTemplate.Height = 29;
@@ -54,21 +53,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(367, 19);
+            label1.Location = new Point(31, 95);
             label1.Name = "label1";
-            label1.Size = new Size(165, 41);
+            label1.Size = new Size(97, 41);
             label1.TabIndex = 1;
-            label1.Text = "Highscores";
-            // 
-            // backButton
-            // 
-            backButton.Location = new Point(350, 581);
-            backButton.Name = "backButton";
-            backButton.Size = new Size(200, 60);
-            backButton.TabIndex = 2;
-            backButton.Text = "Back";
-            backButton.UseVisualStyleBackColor = true;
-            backButton.Click += backButton_Click;
+            label1.Text = "label1";
             // 
             // HiscoresForm
             // 
@@ -76,7 +65,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 64);
             ClientSize = new Size(882, 653);
-            Controls.Add(backButton);
             Controls.Add(label1);
             Controls.Add(dataGridView);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
@@ -94,6 +82,5 @@
         private BindingSource playerBindingSource;
         private DataGridView dataGridView;
         private Label label1;
-        private Button backButton;
     }
 }
