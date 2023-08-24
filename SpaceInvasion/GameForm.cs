@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SpaceInvasion
 {
@@ -17,12 +18,13 @@ namespace SpaceInvasion
     {
         public static int formWidth = 900;
         public static int formHeight = 700;
+        //public int formWidth = this.Width;
         public static bool isGameOver, isGamePaused, hasExited;
         public static int score;
         public HighscoreSystem highscoreSystem = new HighscoreSystem();
-
-
-        Player player = new Player();
+        List<Enemies> enemies = new List<Enemies>();
+        EnemySpawner enemySpawner = new EnemySpawner();
+        Player player = new();
 
         public GameForm()
         {
@@ -35,9 +37,11 @@ namespace SpaceInvasion
 
         private void mainGameTimerEvent(object sender, EventArgs e)
         {
-            CheckForGameOver();
+            //CheckForGameOver();
 
-            Controls.Add(Enemy.Spawn());
+            //Controls.Add(Enemy.Spawn());
+
+            //SpawnEnemies();
 
             UpdateHealthAndScore();
 
@@ -45,10 +49,40 @@ namespace SpaceInvasion
 
             player.Move();
 
-            player.Shoot(bullet);
+            player.Shoot();
 
-            HasExited();
+
         }
+
+        //private void SpawnEnemies()
+        //{
+
+        //    if (Enemies.frequency == 0)
+        //    {
+        //        Enemies.frequency = Enemies.limit;
+
+        //        Enemies newEnemy = new Enemies();
+
+        //        enemies.Add(newEnemy);
+
+        //        Controls.Add(newEnemy.enemyPictureBox);
+        //    }
+
+
+        //    if (score > 0 && score % 100 == 0 && Enemies.increaseSpeedAndFrequency)
+        //    {
+        //        Enemies.limit -= 5;
+        //        Enemies.speed++;
+        //        Enemies.increaseSpeedAndFrequency = true;
+        //    }
+
+        //    if (GameForm.score % 100 != 0)
+        //    {
+        //        Enemies.increaseSpeedAndFrequency = false;
+        //    }
+
+        //    Enemies.frequency--;
+        //}
 
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
@@ -76,7 +110,7 @@ namespace SpaceInvasion
 
             if (e.KeyCode == Keys.Space && player.shooting == false)
             {
-                player.IntitializeShooting(bullet);
+                player.IntitializeShooting();
             }
 
             if (e.KeyCode == Keys.Escape)
@@ -95,16 +129,6 @@ namespace SpaceInvasion
             }
         }
 
-        /// <summary>
-        /// PUT THE BUTTONS IN THE GAME FORM DONT USE A USER CONTROL
-        /// </summary>
-        private void HasExited()
-        {
-            if (hasExited)
-            {
-                this.Close();
-            }
-        }
 
         private void Pause()
         {
@@ -143,20 +167,72 @@ namespace SpaceInvasion
             healthText.Text = "Health: " + player.health.ToString();
         }
 
+        private void InitializePlayer()
+        {
+            player.health = 100;
+            player.width = 64; //65
+            player.height = 64;//55
+            player.speed = 8;
+            player.bulletSpeed = 0;
+            player.posX = formWidth / 2 - player.width;
+            player.posY = formHeight - player.height * 2;
+            player.PictureBox = new PictureBox()
+            {
+                Tag = "player",
+                Width = player.width,
+                Height = player.height,
+                Left = player.posX,
+                Top = player.posY,
+                Image = Properties.Resources.spaceship,
+                SizeMode = PictureBoxSizeMode.StretchImage
+            };//player.RenderPlayerPicturebox();
+            //player.PictureBox.Tag = "player";
+            //player.PictureBox.Width = player.width;
+            //player.PictureBox.Height = player.height;
+            //player.PictureBox.Left = player.posX;
+            //player.PictureBox.Top = player.posY;
+            //player.PictureBox.Image = Properties.Resources.spaceship;
+            //player.PictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            //player.RenderPlayerPicturebox
+            player.bullet = new PictureBox
+            {
+                Tag = "bullet",
+                Image = Properties.Resources.bullet,
+                Left = -300
+            };
+            //player.PictureBox.Left = player.posX;//GameForm.formWidth / 2 - player.width;
+            //Left = posX,
+            //player.PictureBox.Top = player.posY;//GameForm.formHeight - player.height * 2;
+            //Top = posY,
+            Controls.Add(player.PictureBox);
+            Controls.Add(player.bullet);
+        }
+
         private void InitializeGame()
         {
+            InitializePlayer();
+
+            //Initialize Player
+            //player.PictureBox.Left = GameForm.formWidth / 2 - player.width;
+            //player.posX = formWidth / 2 - player.width;
+            //player.posY = formHeight - player.height * 2 + 15;
+            //player.health = 10;
+            //player.bulletSpeed = 0;
+            //player.shooting = false;
+
+
             gameTimer.Start();
             gameOverLabel.Visible = false;
-            Enemy.speed = 5;
-            Enemy.frequency = 100;
-            Enemy.limit = 100;
-            player.PictureBox.Left = GameForm.formWidth / 2 - player.width;
-            player.health = 10;
+            //Enemy.speed = 5;
+            //Enemy.frequency = 100;
+            enemySpawner.frequency = 100;
+            //Enemy.limit = 100;
+            enemySpawner.newFrequency = 100;
 
             score = 0;
-            player.bulletSpeed = 0;
-            bullet.Left = -300;
-            player.shooting = false;
+
+            //bullet.Left = -300;
+
             scoreText.Text = "Score: " + score.ToString();
         }
 
@@ -171,7 +247,7 @@ namespace SpaceInvasion
         private void EnemyBehavior()
         {
             //label1.Text = Enemy.limit.ToString() + " " + Enemy.speed.ToString();
-            label1.Text = EnterUserForm.username;
+            //label1.Text = EnterUserForm.username;
 
             foreach (Control enemy in this.Controls)
             {
@@ -185,7 +261,7 @@ namespace SpaceInvasion
                         Controls.Remove(enemy);
                     }
 
-                    if (bullet.Bounds.IntersectsWith(enemy.Bounds))
+                    if (bulletPB.Bounds.IntersectsWith(enemy.Bounds))
                     {
                         score += 10;
                         Controls.Remove(enemy);

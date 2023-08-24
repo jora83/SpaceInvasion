@@ -29,12 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameForm));
-            enemyPictureBox1 = new PictureBox();
-            enemyPictureBox2 = new PictureBox();
-            enemyPictureBox3 = new PictureBox();
-            playerPictureBox = new PictureBox();
-            bullet = new PictureBox();
+            bulletPB = new PictureBox();
             scoreText = new Label();
             gameTimer = new System.Windows.Forms.Timer(components);
             healthText = new Label();
@@ -43,75 +38,20 @@
             exitButton = new Button();
             pauseBackground = new PictureBox();
             resumeLabel = new Label();
-            ((System.ComponentModel.ISupportInitialize)enemyPictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)enemyPictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)enemyPictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)playerPictureBox).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)bullet).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bulletPB).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pauseBackground).BeginInit();
             SuspendLayout();
             // 
-            // enemyPictureBox1
+            // bulletPB
             // 
-            enemyPictureBox1.Image = Properties.Resources.invader1;
-            enemyPictureBox1.Location = new Point(8, 80);
-            enemyPictureBox1.Margin = new Padding(6);
-            enemyPictureBox1.Name = "enemyPictureBox1";
-            enemyPictureBox1.Size = new Size(125, 113);
-            enemyPictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-            enemyPictureBox1.TabIndex = 0;
-            enemyPictureBox1.TabStop = false;
-            enemyPictureBox1.Tag = "enemyy";
-            enemyPictureBox1.Visible = false;
-            // 
-            // enemyPictureBox2
-            // 
-            enemyPictureBox2.Image = Properties.Resources.invader2;
-            enemyPictureBox2.Location = new Point(343, 93);
-            enemyPictureBox2.Margin = new Padding(6);
-            enemyPictureBox2.Name = "enemyPictureBox2";
-            enemyPictureBox2.Size = new Size(125, 111);
-            enemyPictureBox2.SizeMode = PictureBoxSizeMode.AutoSize;
-            enemyPictureBox2.TabIndex = 1;
-            enemyPictureBox2.TabStop = false;
-            enemyPictureBox2.Tag = "enemyy";
-            enemyPictureBox2.Visible = false;
-            // 
-            // enemyPictureBox3
-            // 
-            enemyPictureBox3.Image = Properties.Resources.invader3;
-            enemyPictureBox3.Location = new Point(739, 91);
-            enemyPictureBox3.Margin = new Padding(6);
-            enemyPictureBox3.Name = "enemyPictureBox3";
-            enemyPictureBox3.Size = new Size(138, 111);
-            enemyPictureBox3.SizeMode = PictureBoxSizeMode.AutoSize;
-            enemyPictureBox3.TabIndex = 2;
-            enemyPictureBox3.TabStop = false;
-            enemyPictureBox3.Tag = "enemyy";
-            enemyPictureBox3.Visible = false;
-            // 
-            // playerPictureBox
-            // 
-            playerPictureBox.Image = (Image)resources.GetObject("playerPictureBox.Image");
-            playerPictureBox.Location = new Point(369, 565);
-            playerPictureBox.Margin = new Padding(6);
-            playerPictureBox.Name = "playerPictureBox";
-            playerPictureBox.Size = new Size(65, 55);
-            playerPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            playerPictureBox.TabIndex = 3;
-            playerPictureBox.TabStop = false;
-            playerPictureBox.Visible = false;
-            // 
-            // bullet
-            // 
-            bullet.Image = Properties.Resources.bullet;
-            bullet.Location = new Point(404, 455);
-            bullet.Margin = new Padding(6);
-            bullet.Name = "bullet";
-            bullet.Size = new Size(8, 15);
-            bullet.SizeMode = PictureBoxSizeMode.AutoSize;
-            bullet.TabIndex = 4;
-            bullet.TabStop = false;
+            bulletPB.Image = Properties.Resources.bullet;
+            bulletPB.Location = new Point(404, 455);
+            bulletPB.Margin = new Padding(6);
+            bulletPB.Name = "bulletPB";
+            bulletPB.Size = new Size(8, 15);
+            bulletPB.SizeMode = PictureBoxSizeMode.AutoSize;
+            bulletPB.TabIndex = 4;
+            bulletPB.TabStop = false;
             // 
             // scoreText
             // 
@@ -207,11 +147,7 @@
             Controls.Add(label1);
             Controls.Add(healthText);
             Controls.Add(scoreText);
-            Controls.Add(bullet);
-            Controls.Add(playerPictureBox);
-            Controls.Add(enemyPictureBox3);
-            Controls.Add(enemyPictureBox2);
-            Controls.Add(enemyPictureBox1);
+            Controls.Add(bulletPB);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(6);
             Name = "GameForm";
@@ -219,23 +155,14 @@
             Text = "GameForm";
             KeyDown += KeyIsDown;
             KeyUp += KeyIsUp;
-            ((System.ComponentModel.ISupportInitialize)enemyPictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)enemyPictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)enemyPictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)playerPictureBox).EndInit();
-            ((System.ComponentModel.ISupportInitialize)bullet).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bulletPB).EndInit();
             ((System.ComponentModel.ISupportInitialize)pauseBackground).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private PictureBox enemyPictureBox1;
-        private PictureBox enemyPictureBox2;
-        private PictureBox enemyPictureBox3;
-        private PictureBox playerPictureBox;
-        private PictureBox bullet;
+        private PictureBox bulletPB;
         private Label scoreText;
         private System.Windows.Forms.Timer gameTimer;
         private Label healthText;
