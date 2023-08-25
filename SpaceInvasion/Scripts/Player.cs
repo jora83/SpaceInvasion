@@ -11,40 +11,78 @@ namespace SpaceInvasion.Scripts
 {
     public class Player
     {
-        public int health { get; set; }//= 100;
-        public int width { get; set; } //= 85;
-        public int height { get; set; }//= 75;
-        public int speed { get; set; }//= 8;
-        public int posX { get; set; }
-        public int posY { get; set; }
-        public int bulletSpeed { get; set; }//= 20;
+        public int Health { get; set; }//= 100;
+        //public int Width { get; set; } //= 85;
+        //public int Height { get; set; }//= 75;
+        public int Speed { get; set; }//= 8;
+        public int PosX { get; set; }
+        public int PosY { get; set; }
+        public PictureBox PictureBox { get; }
+        public PictureBox Bullet { get; } //{ Image = Properties.Resources.bullet };
+
         public bool moveLeft, moveRight, shooting;
-        public PictureBox PictureBox { get; set; }
+        private readonly int initialPosX;
+        private readonly int initialPosY;
 
-        public PictureBox bullet { get; set; } //{ Image = Properties.Resources.bullet };
-        public Player()
+       
+        public Player(int health, int speed, int formWidth, int formHeight)
         {
-            //PictureBox = RenderPlayerPicturebox();
-        }
-        public void RenderPlayer()
-        {
+            Health = health;
+            //Width = width;
+            //Height = height;
+            Speed = speed;
+            
 
-        }
-        public PictureBox RenderPlayerPicturebox()
-        {
-            return new PictureBox()
+            Image playerImage = Properties.Resources.spaceship;
+
+            PictureBox = new PictureBox()
             {
                 Tag = "player",
-                Width = width,
-                Height = height,
-                //Left = GameForm.formWidth / 2 - width,
-                //Left = posX,
-                //Top = GameForm.formHeight - height * 2 + 15,
-                //Top = posY,
-                Image = Properties.Resources.spaceship,
+                Width = 64,
+                Height = 64,
+                Left = PosX,
+                Top = PosY,
+                Image = playerImage,
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
+
+            PosX = formWidth / 2 - PictureBox.Width;
+            PosY = formHeight - PictureBox.Height * 2;
+            initialPosX = PosX;
+            initialPosY = PosY;
+
+            Image bulletImage = Properties.Resources.bullet;
+
+            Bullet = new PictureBox
+            {
+                Tag = "bullet",
+                Image = bulletImage,
+                Left = -300
+            };
         }
+        public void Reset()
+        {
+            Health = 100;
+            PosX = initialPosX;
+            PosY = initialPosY;
+            PictureBox.Left = PosX;
+            PictureBox.Top = PosY;
+        }
+        //public PictureBox RenderPlayerPicturebox()
+        //{
+        //    return new PictureBox()
+        //    {
+        //        Tag = "player",
+        //        Width = Width,
+        //        Height = Height,
+        //        //Left = GameForm.formWidth / 2 - width,
+        //        //Left = posX,
+        //        //Top = GameForm.formHeight - height * 2 + 15,
+        //        //Top = posY,
+        //        Image = Properties.Resources.spaceship,
+        //        SizeMode = PictureBoxSizeMode.StretchImage
+        //    };
+        //}
 
         public void Move()
         {
@@ -53,17 +91,17 @@ namespace SpaceInvasion.Scripts
 
             //if (moveRight == true && PictureBox.Left < (900 - 85) - 10)//(GameForm.formWidth - PictureBox.Width))
             //    PictureBox.Left += speed;
-            if (moveLeft == true && posX > 0)
+            if (moveLeft == true && PosX > 0)
             {
-                posX -= speed;
-                PictureBox.Left = posX;
+                PosX -= Speed;
+                PictureBox.Left = PosX;
             }
                 
 
-            if (moveRight == true && posX < (900 - 85) - 10)//(GameForm.formWidth - PictureBox.Width))
+            if (moveRight == true && PosX < (900 - 85) - 10)//(GameForm.formWidth - PictureBox.Width))
             {
-                posX += speed;
-                PictureBox.Left = posX;
+                PosX += Speed;
+                PictureBox.Left = PosX;
             }    
 
         }
@@ -72,26 +110,27 @@ namespace SpaceInvasion.Scripts
         { 
             shooting = true;
 
-            bullet.Top = PictureBox.Top - (bullet.Height + 5);
-            bullet.Left = PictureBox.Left + (PictureBox.Width / 2);
+            Bullet.Top = PictureBox.Top - (Bullet.Height + 5);
+            Bullet.Left = PictureBox.Left + (PictureBox.Width / 2);
 
         }
 
         public void Shoot()
         {
+            int bulletSpeed = 20;
             
             if (shooting == true)
             {
                 bulletSpeed = 20;
-                bullet.Top -= bulletSpeed;
+                Bullet.Top -= bulletSpeed;
             }
             else
             {
-                bullet.Left = -300;
+                Bullet.Left = -300;
                 bulletSpeed = 0;
             }
 
-            if (bullet.Top < -30)
+            if (Bullet.Top < -30)
             {
                 shooting = false;
             }

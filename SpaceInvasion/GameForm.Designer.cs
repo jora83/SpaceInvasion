@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            bulletPB = new PictureBox();
             scoreText = new Label();
             gameTimer = new System.Windows.Forms.Timer(components);
             healthText = new Label();
@@ -38,20 +37,8 @@
             exitButton = new Button();
             pauseBackground = new PictureBox();
             resumeLabel = new Label();
-            ((System.ComponentModel.ISupportInitialize)bulletPB).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pauseBackground).BeginInit();
             SuspendLayout();
-            // 
-            // bulletPB
-            // 
-            bulletPB.Image = Properties.Resources.bullet;
-            bulletPB.Location = new Point(404, 455);
-            bulletPB.Margin = new Padding(6);
-            bulletPB.Name = "bulletPB";
-            bulletPB.Size = new Size(8, 15);
-            bulletPB.SizeMode = PictureBoxSizeMode.AutoSize;
-            bulletPB.TabIndex = 4;
-            bulletPB.TabStop = false;
             // 
             // scoreText
             // 
@@ -147,7 +134,6 @@
             Controls.Add(label1);
             Controls.Add(healthText);
             Controls.Add(scoreText);
-            Controls.Add(bulletPB);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(6);
             Name = "GameForm";
@@ -155,14 +141,12 @@
             Text = "GameForm";
             KeyDown += KeyIsDown;
             KeyUp += KeyIsUp;
-            ((System.ComponentModel.ISupportInitialize)bulletPB).EndInit();
             ((System.ComponentModel.ISupportInitialize)pauseBackground).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private PictureBox bulletPB;
         private Label scoreText;
         private System.Windows.Forms.Timer gameTimer;
         private Label healthText;

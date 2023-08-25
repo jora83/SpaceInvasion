@@ -9,52 +9,90 @@ namespace SpaceInvasion.Scripts
 {
     public class Enemies
     {
-        static Random rnd = new Random();
-        public int speed { get; set; } //5
-        public int posX { get; set; }
-        public int posY { get; set; }
+        private static Random rnd = new Random();
+        //public static int initialSpeed { get; set; } = 5;
+        public int Speed { get; set; } //5
+        public int PosX { get; set; }
+        public int PosY { get; set; }
         //public int frequency { get; set; } //100
         //public int limit { get; set; } //100
-        public bool increaseSpeedAndFrequency { get; set; }
+        //public bool increaseSpeedAndFrequency { get; set; }
         //public static List<PictureBox> Disposal = new List<PictureBox>();
-        public PictureBox enemyPictureBox { get; set; }
-        private Image[] image { get; set; }
-       
+        public bool HasDealtDamage { get; set; }
+        public bool IsDead { get; set; }
+        public PictureBox PictureBox { get; private set; }
+        private static Image[] enemyImages = new Image[] { Properties.Resources.alien1, Properties.Resources.alien2,
+                                                    Properties.Resources.alien3, Properties.Resources.alien4 };
+        //public static List<Enemies> enemyList {  get; set; }
 
-        public Enemies() 
+        public Enemies(int speed, int posX, int posY) 
         {
-            enemyPictureBox = RenderEnemyPictureBox();
-        }
+            Speed = speed;
+            PosX = posX;
+            PosY = posY;
 
-        public PictureBox RenderEnemyPictureBox()
-        {
-            image = new Image[] { Properties.Resources.alien1, Properties.Resources.alien2, Properties.Resources.alien3, Properties.Resources.alien4 };
-            return new PictureBox()
+            Image enemyImage = enemyImages[rnd.Next(enemyImages.Length)];
+
+            PictureBox = new PictureBox()
             {
                 Tag = "enemy",
-                Width = 75,
-                Height = 65,
-                //Left = rnd.Next(8, 740),
-                Left = posX,
-                //Top = rnd.Next(300, 500) * -1,
-                Top = posY,
-                Image = image[rnd.Next(image.Length)],
+                Width = 64, //75
+                Height = 64, //65
+                Left = PosX,
+                Top = PosY,
+                Image = enemyImage,
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
-
         }
 
-        public void Move()
+        //public PictureBox RenderEnemyPictureBox()
+        //{
+        //    image = new Image[] { Properties.Resources.alien1, Properties.Resources.alien2, Properties.Resources.alien3, Properties.Resources.alien4 };
+        //    return new PictureBox()
+        //    {
+        //        Tag = "enemy",
+        //        Width = 75,
+        //        Height = 65,
+        //        //Left = rnd.Next(8, 740),
+        //        Left = PosX,
+        //        //Top = rnd.Next(300, 500) * -1,
+        //        Top = PosY,
+        //        Image = image[rnd.Next(image.Length)],
+        //        SizeMode = PictureBoxSizeMode.StretchImage
+        //    };
+
+        //}
+
+        public void MoveDown()
         {
-            posY += speed;
-            enemyPictureBox.Top = posY;
+            PosY += Speed;
+            PictureBox.Top = PosY;
         }
 
-
-        public void enemyInteractions(PictureBox objectToInterractWith)
+        public void Collision(int formHeight, Player player)
         {
+            if (PictureBox.Top > formHeight)
+            {
+                HasDealtDamage = true;
+                //EnemySpawner.enemyList.Remove(this);
+            }
 
+            if (player.Bullet.Bounds.IntersectsWith(PictureBox.Bounds))
+            {
+                IsDead = true;
+                //EnemySpawner.enemyList.Remove(this);
+                //player.shooting = false;
+            }
+
+            if (player.PictureBox.Bounds.IntersectsWith(PictureBox.Bounds))
+            {
+                HasDealtDamage = true;
+                //EnemySpawner.enemyList.Remove(this);
+            }
+            //HasDealtDamage=false;
+            //IsDead = false;
         }
+        
         //public PictureBox? Spawn()
         //{
         //    if (GameForm.score > 0 && GameForm.score % 100 == 0 && increaseSpeedAndFrequency)
