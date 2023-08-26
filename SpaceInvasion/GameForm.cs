@@ -56,7 +56,7 @@ namespace SpaceInvasion
 
         }
 
-       
+
         private void SpawnEnemies()
         {
             foreach (var enemy in enemySpawner.EnemyList)
