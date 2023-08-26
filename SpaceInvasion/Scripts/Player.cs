@@ -46,7 +46,9 @@ namespace SpaceInvasion.Scripts
                 SizeMode = PictureBoxSizeMode.StretchImage
             };
 
-            PosX = formWidth / 2 - PictureBox.Width;
+            //PosX = formWidth / 2 - PictureBox.Width;
+            //PosY = formHeight - PictureBox.Height * 2;
+            PosX = (formWidth - PictureBox.Width) / 2;
             PosY = formHeight - PictureBox.Height * 2;
             initialPosX = PosX;
             initialPosY = PosY;

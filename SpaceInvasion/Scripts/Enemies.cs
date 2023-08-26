@@ -30,7 +30,8 @@ namespace SpaceInvasion.Scripts
             Speed = speed;
             PosX = posX;
             PosY = posY;
-
+            HasDealtDamage = false;
+            IsDead = false;
             Image enemyImage = enemyImages[rnd.Next(enemyImages.Length)];
 
             PictureBox = new PictureBox()
@@ -68,7 +69,13 @@ namespace SpaceInvasion.Scripts
             PosY += Speed;
             PictureBox.Top = PosY;
         }
-
+        public bool Collided(PictureBox pictureBox)
+        {   
+            if (pictureBox.Bounds.IntersectsWith(PictureBox.Bounds))
+                return true;
+                
+            return false;
+        }
         public void Collision(int formHeight, Player player)
         {
             if (PictureBox.Top > formHeight)

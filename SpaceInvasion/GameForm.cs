@@ -22,7 +22,7 @@ namespace SpaceInvasion
         public static bool isGameOver, isGamePaused, hasExited;
         public static int score;
         public HighscoreSystem highscoreSystem = new HighscoreSystem();
-        EnemySpawner enemySpawner = new EnemySpawner(100);
+        EnemySpawner enemySpawner = new EnemySpawner(50, 5, formWidth); //100, 5
 
         Player player = new Player(100, 8, formWidth, formHeight);
 
@@ -40,9 +40,7 @@ namespace SpaceInvasion
         {
             //CheckForGameOver();
 
-            //Controls.Add(Enemy.Spawn());
 
-            //SpawnEnemies();
             SpawnEnemies();
 
             UpdateHealthAndScore();
@@ -53,40 +51,12 @@ namespace SpaceInvasion
 
             player.Shoot();
 
-            enemySpawner.SpawnEnemy(score, formWidth, formHeight);
+            enemySpawner.SpawnEnemies(score);
 
 
         }
 
-        //private void SpawnEnemies()
-        //{
-
-        //    if (Enemies.frequency == 0)
-        //    {
-        //        Enemies.frequency = Enemies.limit;
-
-        //        Enemies newEnemy = new Enemies();
-
-        //        enemies.Add(newEnemy);
-
-        //        Controls.Add(newEnemy.enemyPictureBox);
-        //    }
-
-
-        //    if (score > 0 && score % 100 == 0 && Enemies.increaseSpeedAndFrequency)
-        //    {
-        //        Enemies.limit -= 5;
-        //        Enemies.speed++;
-        //        Enemies.increaseSpeedAndFrequency = true;
-        //    }
-
-        //    if (GameForm.score % 100 != 0)
-        //    {
-        //        Enemies.increaseSpeedAndFrequency = false;
-        //    }
-
-        //    Enemies.frequency--;
-        //}
+       
         private void SpawnEnemies()
         {
             foreach (var enemy in enemySpawner.EnemyList)
@@ -258,27 +228,81 @@ namespace SpaceInvasion
         //}
         private void EnemyBehavior()
         {
-
-            for (int i = enemySpawner.EnemyList.Count - 1; i >= 0; i--)
+            label1.Text = enemySpawner.NewFrequency.ToString() + " " + enemySpawner.EnemySpawnSpeed.ToString();
+            foreach (var enemy in enemySpawner.EnemyList)
             {
-                enemySpawner.EnemyList[i].Collision(formHeight, player);
-
-                if (enemySpawner.EnemyList[i].HasDealtDamage)
+                if (!enemy.IsDead && !enemy.HasDealtDamage)
                 {
-                    player.Health -= 10;
-                    enemySpawner.EnemyList[i].PictureBox.Visible = false;
-                    enemySpawner.EnemyList.RemoveAt(i);
-                    player.shooting = false;
-                }
-                if (enemySpawner.EnemyList[i].IsDead)
-                {
-                    score += 10;
-                    enemySpawner.EnemyList[i].PictureBox.Visible = false;
-                    enemySpawner.EnemyList.RemoveAt(i);
-                    player.shooting = false;
+                    if (enemy.Collided(player.PictureBox))
+                    {
+                        player.Health -= 10;
+                        enemy.HasDealtDamage = true;
+                        enemy.PictureBox.Visible = false;
+                        //enemy.PictureBox.Left = -300;
+                    }
+                    if (enemy.PictureBox.Top > formHeight)
+                    {
+                        player.Health -= 10;
+                        enemy.HasDealtDamage = true;
+                        enemy.PictureBox.Visible = false;
+                    }
+                    if (enemy.Collided(player.Bullet))
+                    {
+                        score += 10;
+                        enemy.IsDead = true;
+                        enemy.PictureBox.Visible = false;
+                        player.shooting = false;
+                    }
                 }
             }
+            enemySpawner.EnemyList.RemoveAll(enemy => enemy.IsDead && enemy.HasDealtDamage);
 
+            //for (int i = enemySpawner.EnemyList.Count - 1; i >= 0; i--)
+            //{
+            //    enemySpawner.EnemyList[i].Collision(formHeight, player);
+
+            //    if (enemySpawner.EnemyList[i].HasDealtDamage)
+            //    {
+            //        player.Health -= 10;
+            //        enemySpawner.EnemyList[i].PictureBox.Visible = false;
+            //        enemySpawner.EnemyList.RemoveAt(i);
+            //        player.shooting = false;
+            //    }
+            //    if (enemySpawner.EnemyList[i].IsDead)
+            //    {
+            //        score += 10;
+            //        enemySpawner.EnemyList[i].PictureBox.Visible = false;
+            //        enemySpawner.EnemyList.RemoveAt(i);
+            //        player.shooting = false;
+            //    }
+            //}
+
+            //for (int i = enemySpawner.EnemyList.Count - 1; i >= 0; i--)
+            //{
+            //    if (enemySpawner.EnemyList[i].PictureBox.Top > formHeight)
+            //    {
+            //        score += 10;
+            //        enemySpawner.EnemyList[i].PictureBox.Visible = false;
+            //        enemySpawner.EnemyList.RemoveAt(i);
+            //        player.shooting = false;
+            //    }
+            //    if (enemySpawner.EnemyList[i].Collided(player.PictureBox))
+            //    {
+            //        player.Health -= 10;
+            //        enemySpawner.EnemyList[i].PictureBox.Visible = false;
+            //        enemySpawner.EnemyList.RemoveAt(i);
+            //        player.shooting = false;
+            //    }
+
+            //    if (enemySpawner.EnemyList[i].Collided(player.Bullet))
+            //    {
+            //        score += 10;
+            //        enemySpawner.EnemyList[i].PictureBox.Visible = false;
+            //        enemySpawner.EnemyList.RemoveAt(i);
+            //        player.shooting = false;
+            //    }
+
+            //}
 
 
         }
