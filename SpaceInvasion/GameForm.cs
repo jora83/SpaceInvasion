@@ -11,60 +11,75 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace SpaceInvasion
 {
     public partial class GameForm : Form
     {
-        public static int formWidth = 900;
-        public static int formHeight = 700;
-        //public int formWidth = this.Width;
-        public static bool isGameOver, isGamePaused, hasExited;
-        public static int score;
-        public HighscoreSystem highscoreSystem = new HighscoreSystem();
-        EnemySpawner enemySpawner = new EnemySpawner(50, 5, formWidth); //100, 5
+        int formWidth;
+        int formHeight;
+        string username;
+        bool isGameOver, isGamePaused, hasExited;
+        //int score;
+        private Player player;
+        private EnemySpawner enemySpawner;
+        private HighscoreSystem highscoreSystem;
 
-        Player player = new Player(100, 8, formWidth, formHeight);
 
+        //HighscoreSystem highscoreSystem = new HighscoreSystem();
+        //EnemySpawner enemySpawner = new EnemySpawner(100, 5, formWidth); //100, 5
 
-        public GameForm()
+        //Player player = new Player(100, 8, formWidth, formHeight);
+
+        //GameBackground background = new GameBackground(40, formWidth, formHeight);
+
+        //public GameForm()
+        //{
+
+        //    InitializeComponent();
+        //    formWidth = this.Width;
+        //    formHeight = this.Height;
+        //    InitializeGame();
+        //    //AddStars();
+        //    //Controls.Add(player.PictureBox);
+        //    //highscoreSystem.LoadHighscores(); 
+        //}
+
+        public GameForm(string username)
         {
             InitializeComponent();
+            this.username = username;
+            formWidth = this.Width;
+            formHeight = this.Height;
             InitializeGame();
-            Controls.Add(player.PictureBox);
-            highscoreSystem.LoadHighscores();
         }
-
 
         private void mainGameTimerEvent(object sender, EventArgs e)
         {
-            //CheckForGameOver();
-
+            CheckForGameOver();
 
             SpawnEnemies();
 
             UpdateHealthAndScore();
 
-            EnemyBehavior();
+            UpdatePlayerAndEnemies();
 
-            player.Move();
 
-            player.Shoot();
+            //background.Update();
 
-            enemySpawner.SpawnEnemies(score);
 
 
         }
 
-
-        private void SpawnEnemies()
-        {
-            foreach (var enemy in enemySpawner.EnemyList)
-            {
-                Controls.Add(enemy.PictureBox);
-                enemy.MoveDown();
-            }
-        }
+        
+        //public void AddStars()
+        //{
+        //    foreach(var star in background.stars)
+        //    {
+        //        Controls.Add(star.PictureBox);
+        //    }
+        //}
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
@@ -110,6 +125,54 @@ namespace SpaceInvasion
             }
         }
 
+        private void SpawnEnemies()
+        {
+            enemySpawner.SpawnEnemies(player.Score);
+
+            foreach (var enemy in enemySpawner.EnemyList)
+            {
+                Controls.Add(enemy.PictureBox);
+            }
+        }
+
+        private void UpdatePlayerAndEnemies()
+        {
+            //label1.Text = enemySpawner.NewFrequency.ToString() + " " + enemySpawner.EnemySpawnSpeed.ToString();
+            label1.Text = formWidth.ToString() + " " + formHeight.ToString();
+            player.Move();
+
+            player.Shoot();
+
+            foreach (var enemy in enemySpawner.EnemyList)
+            {
+                enemy.MoveDown();
+
+                if (!enemy.IsDead && !enemy.HasDealtDamage)
+                {
+                    if (enemy.Collided(player.PictureBox))
+                    {
+                        player.Health -= 10;
+                        enemy.HasDealtDamage = true;
+                        enemy.PictureBox.Visible = false;
+                    }
+                    if (enemy.PictureBox.Top > formHeight)
+                    {
+                        player.Health -= 10;
+                        enemy.HasDealtDamage = true;
+                        enemy.PictureBox.Visible = false;
+                    }
+                    if (enemy.Collided(player.Bullet))
+                    {
+                        player.IncreaseScore(10);
+                        enemy.IsDead = true;
+                        enemy.PictureBox.Visible = false;
+                        player.shooting = false;
+                    }
+                }
+            }
+            enemySpawner.EnemyList.RemoveAll(enemy => enemy.IsDead && enemy.HasDealtDamage);
+
+        }
 
         private void Pause()
         {
@@ -144,168 +207,48 @@ namespace SpaceInvasion
 
         private void UpdateHealthAndScore()
         {
-            scoreText.Text = "Score: " + score.ToString();
+            scoreText.Text = "Score: " + player.Score.ToString();
             healthText.Text = "Health: " + player.Health.ToString();
         }
 
-        private void InitializePlayer()
-        {
-            player.Reset();
+        //private void InitializePlayer()
+        //{
+        //    player.Reset();
 
-            Controls.Add(player.PictureBox);
-            Controls.Add(player.Bullet);
-        }
+        //    Controls.Add(player.PictureBox);
+        //    Controls.Add(player.Bullet);
+        //}
 
 
         private void InitializeGame()
         {
-            InitializePlayer();
+            player = new Player(100, 8, formWidth, formHeight);
+            //player = new Player(100, 8, 900, 700);
+            Controls.Add(player.PictureBox);
+            Controls.Add(player.Bullet);
+            enemySpawner = new EnemySpawner(100, 5, formWidth);
+            highscoreSystem = new HighscoreSystem();
 
-            //Initialize Player
-            //player.PictureBox.Left = GameForm.formWidth / 2 - player.width;
-            //player.posX = formWidth / 2 - player.width;
-            //player.posY = formHeight - player.height * 2 + 15;
-            //player.health = 10;
-            //player.bulletSpeed = 0;
-            //player.shooting = false;
-
-
+            
             gameTimer.Start();
             gameOverLabel.Visible = false;
-            //Enemy.speed = 5;
-            //Enemy.frequency = 100;
-            enemySpawner.Frequency = 100;
-            //Enemy.limit = 100;
-            //enemySpawner.NewFrequency = 100;
+            
+            
 
-            score = 0;
-
-            //bullet.Left = -300;
-
-            scoreText.Text = "Score: " + score.ToString();
+            //scoreText.Text = "Score: " + score.ToString();
         }
 
         private void GoToMainMenu()
         {
+            highscoreSystem.AddUser(username, player.Score);
             highscoreSystem.SaveHiscores();
             MainForm mainForm = new MainForm();
             mainForm.Show();
             this.Hide();
         }
 
-        //private void EnemyBehavior()
-        //{
-        //    //label1.Text = Enemy.limit.ToString() + " " + Enemy.speed.ToString();
-        //    //label1.Text = EnterUserForm.username;
-
-        //    foreach (Control enemy in this.Controls)
-        //    {
-        //        if (enemy is PictureBox && enemy.Tag != null && enemy.Tag.ToString() == "enemy")
-        //        {
-        //            enemy.Top += Enemy.speed;
-
-        //            if (enemy.Top > formHeight)
-        //            {
-        //                player.Health -= 10;
-        //                Controls.Remove(enemy);
-        //            }
-
-        //            if (player.Bullet.Bounds.IntersectsWith(enemy.Bounds))
-        //            {
-        //                score += 10;
-        //                Controls.Remove(enemy);
-        //                player.shooting = false;
-        //            }
-
-        //            if (player.PictureBox.Bounds.IntersectsWith(enemy.Bounds))
-        //            {
-        //                player.Health -= 10;
-        //                Controls.Remove(enemy);
-        //            }
-
-        //        }
-        //    }
-        //}
-        private void EnemyBehavior()
-        {
-            label1.Text = enemySpawner.NewFrequency.ToString() + " " + enemySpawner.EnemySpawnSpeed.ToString();
-            foreach (var enemy in enemySpawner.EnemyList)
-            {
-                if (!enemy.IsDead && !enemy.HasDealtDamage)
-                {
-                    if (enemy.Collided(player.PictureBox))
-                    {
-                        player.Health -= 10;
-                        enemy.HasDealtDamage = true;
-                        enemy.PictureBox.Visible = false;
-                        //enemy.PictureBox.Left = -300;
-                    }
-                    if (enemy.PictureBox.Top > formHeight)
-                    {
-                        player.Health -= 10;
-                        enemy.HasDealtDamage = true;
-                        enemy.PictureBox.Visible = false;
-                    }
-                    if (enemy.Collided(player.Bullet))
-                    {
-                        score += 10;
-                        enemy.IsDead = true;
-                        enemy.PictureBox.Visible = false;
-                        player.shooting = false;
-                    }
-                }
-            }
-            enemySpawner.EnemyList.RemoveAll(enemy => enemy.IsDead && enemy.HasDealtDamage);
-
-            //for (int i = enemySpawner.EnemyList.Count - 1; i >= 0; i--)
-            //{
-            //    enemySpawner.EnemyList[i].Collision(formHeight, player);
-
-            //    if (enemySpawner.EnemyList[i].HasDealtDamage)
-            //    {
-            //        player.Health -= 10;
-            //        enemySpawner.EnemyList[i].PictureBox.Visible = false;
-            //        enemySpawner.EnemyList.RemoveAt(i);
-            //        player.shooting = false;
-            //    }
-            //    if (enemySpawner.EnemyList[i].IsDead)
-            //    {
-            //        score += 10;
-            //        enemySpawner.EnemyList[i].PictureBox.Visible = false;
-            //        enemySpawner.EnemyList.RemoveAt(i);
-            //        player.shooting = false;
-            //    }
-            //}
-
-            //for (int i = enemySpawner.EnemyList.Count - 1; i >= 0; i--)
-            //{
-            //    if (enemySpawner.EnemyList[i].PictureBox.Top > formHeight)
-            //    {
-            //        score += 10;
-            //        enemySpawner.EnemyList[i].PictureBox.Visible = false;
-            //        enemySpawner.EnemyList.RemoveAt(i);
-            //        player.shooting = false;
-            //    }
-            //    if (enemySpawner.EnemyList[i].Collided(player.PictureBox))
-            //    {
-            //        player.Health -= 10;
-            //        enemySpawner.EnemyList[i].PictureBox.Visible = false;
-            //        enemySpawner.EnemyList.RemoveAt(i);
-            //        player.shooting = false;
-            //    }
-
-            //    if (enemySpawner.EnemyList[i].Collided(player.Bullet))
-            //    {
-            //        score += 10;
-            //        enemySpawner.EnemyList[i].PictureBox.Visible = false;
-            //        enemySpawner.EnemyList.RemoveAt(i);
-            //        player.shooting = false;
-            //    }
-
-            //}
 
 
-        }
         private void GameOver()
         {
             isGameOver = true;
@@ -316,15 +259,13 @@ namespace SpaceInvasion
                     Controls.Remove(y);
                 }
             }
-            gameOverLabel.Text = Environment.NewLine + "Game Over!" + Environment.NewLine + "Your score is: " + score.ToString()
+            gameOverLabel.Text = Environment.NewLine + "Game Over!" + Environment.NewLine + "Your score is: " + player.Score.ToString()
                 + Environment.NewLine + "Press enter to try again" + Environment.NewLine + "Press exit to go to the Main Menu";
             gameOverLabel.Visible = true;
-            highscoreSystem.AddUser(EnterUserForm.username, score);
-            //HighscoreSystem.SaveHiscores();
+            highscoreSystem.AddUser(username, player.Score);
             gameTimer.Stop();
 
         }
-
 
         private void exitButton_Click(object sender, EventArgs e)
         {

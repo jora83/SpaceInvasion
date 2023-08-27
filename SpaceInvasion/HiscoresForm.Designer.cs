@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             playerBindingSource = new BindingSource(components);
             dataGridView = new DataGridView();
-            label1 = new Label();
+            backButton = new Button();
             ((System.ComponentModel.ISupportInitialize)playerBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
@@ -43,21 +43,22 @@
             // dataGridView
             // 
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(209, 109);
+            dataGridView.Location = new Point(200, 71);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
             dataGridView.RowTemplate.Height = 29;
             dataGridView.Size = new Size(500, 500);
             dataGridView.TabIndex = 0;
             // 
-            // label1
+            // backButton
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(31, 95);
-            label1.Name = "label1";
-            label1.Size = new Size(97, 41);
-            label1.TabIndex = 1;
-            label1.Text = "label1";
+            backButton.Location = new Point(350, 583);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(200, 60);
+            backButton.TabIndex = 1;
+            backButton.Text = "Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
             // 
             // HiscoresForm
             // 
@@ -65,7 +66,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 64);
             ClientSize = new Size(882, 653);
-            Controls.Add(label1);
+            Controls.Add(backButton);
             Controls.Add(dataGridView);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(6);
@@ -75,12 +76,11 @@
             ((System.ComponentModel.ISupportInitialize)playerBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
         private BindingSource playerBindingSource;
         private DataGridView dataGridView;
-        private Label label1;
+        private Button backButton;
     }
 }

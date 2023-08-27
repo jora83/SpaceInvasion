@@ -12,9 +12,18 @@ namespace SpaceInvasion.Scripts
 {
     public class HighscoreSystem
     {
+
         private Dictionary<string, int> highscores = new Dictionary<string, int>();
         //private string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Highscores.json" );
-        string filePath = @"C:\\Users\\joraa\\source\\repos\\SpaceInvasion\\SpaceInvasion\\Highscores.json";
+        //string filePath = @"C:\\Users\\joraa\\source\\repos\\SpaceInvasion\\SpaceInvasion\\Highscores.json";
+        string relativePath = "Highscores.json";
+        string filePath;
+        public HighscoreSystem()
+        {
+            filePath = Path.Combine(Application.StartupPath, relativePath);
+            LoadHighscores();
+        }
+
         public void AddUser(string username, int score)
         {
             if (highscores.ContainsKey(username))

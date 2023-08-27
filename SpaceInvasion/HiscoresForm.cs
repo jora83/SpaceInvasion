@@ -22,7 +22,6 @@ namespace SpaceInvasion
             InitializeComponent();
             HighscoreSystem.LoadHighscores();
             highscores = HighscoreSystem.GetHighscores();
-            //ShowHighscores();
             ConvertToDataTable();
         }
 
@@ -34,8 +33,8 @@ namespace SpaceInvasion
             dataTable.Columns.Add("Score", typeof(int));
 
             int place = 1;
-            foreach(var kvp in highscores)
-            { 
+            foreach (var kvp in highscores)
+            {
                 dataTable.Rows.Add(place, kvp.Key, kvp.Value);
                 place++;
             }
@@ -45,26 +44,12 @@ namespace SpaceInvasion
             dataGridView.DataSource = dataTable;
         }
 
-        private void ShowHighscores()
+        private void backButton_Click(object sender, EventArgs e)
         {
-            foreach (var kvp in highscores)
-            {
-                label1.Text += kvp.Key + ": " + kvp.Value + Environment.NewLine;
-            }
-
-            //dataGridView.Rows.Clear();
-
-            //foreach (var cellData in highscores)
-            //{
-            //    int columnIndex = cellData.Value;
-            //    string cellValue = cellData.Key;
-
-            //    // Assuming the row index is the index in the dataList (0-based index)
-            //    int rowIndex = dataGridView.Rows.Add();
-
-            //    // Populate the DataGridView cell with the cell value at the specified row and column index
-            //    dataGridView.Rows[rowIndex].Cells[columnIndex].Value = cellValue;
-            //}
+            MainForm mainForm = new();
+            this.Hide();
+            mainForm.Show();
         }
+
     }
 }

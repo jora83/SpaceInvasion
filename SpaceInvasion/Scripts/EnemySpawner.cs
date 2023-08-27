@@ -10,24 +10,13 @@ namespace SpaceInvasion.Scripts
     public class EnemySpawner
     {
         private static Random rnd = new Random();
-
-        //public int InitialFrequency { get; set; }
         public int Frequency { get; set; }
-
         public int NewFrequency { get; set; }
-
         public int EnemySpawnSpeed { get; set; }
-
         private int FormWidth { get; set; }
-        private int FormHeight { get; set; }
         private bool IncreaseSpeedAndFrequency { get; set; }
-
-
-
         private bool shouldSpawnEnemy { get; set; }
-
         public List<Enemies> EnemyList { get; set; }
-        //public static List<Enemies> EnemyRemover { get; set; }
 
         public EnemySpawner(int frequency, int speed, int formWidth)
         {
@@ -44,7 +33,7 @@ namespace SpaceInvasion.Scripts
 
         public void SpawnEnemies(int score)
         {
-            int enemyPosX = rnd.Next(0, FormWidth - 80);
+            int enemyPosX = rnd.Next(0, FormWidth /*- 80*/);
             int enemyPosY = rnd.Next(300, 500) * -1;
 
             Frequency--;

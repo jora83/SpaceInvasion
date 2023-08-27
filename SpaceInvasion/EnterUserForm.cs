@@ -12,7 +12,7 @@ namespace SpaceInvasion
 {
     public partial class EnterUserForm : Form
     {
-        public static string username;
+        private string username;
         public EnterUserForm()
         {
             InitializeComponent();
@@ -21,7 +21,7 @@ namespace SpaceInvasion
         private void enterButton_Click(object sender, EventArgs e)
         {
             username = userTextBox.Text;
-            GameForm gameForm = new GameForm();
+            GameForm gameForm = new GameForm(username);
             this.Hide();
             gameForm.Show();
         }

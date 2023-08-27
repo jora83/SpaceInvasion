@@ -12,8 +12,9 @@ namespace SpaceInvasion.Scripts
     public class Player
     {
         public int Health { get; set; }//= 100;
-        //public int Width { get; set; } //= 85;
-        //public int Height { get; set; }//= 75;
+        public int Width { get; set; } //= 85;
+        public int Height { get; set; }//= 75;
+        public int Score { get; private set; }
         public int Speed { get; set; }//= 8;
         public int PosX { get; set; }
         public int PosY { get; set; }
@@ -31,15 +32,18 @@ namespace SpaceInvasion.Scripts
             //Width = width;
             //Height = height;
             Speed = speed;
-            
-
+            Score = 0;
+            Width = 64;
+            Height = 64;
+            PosX = (formWidth - Width) / 2;
+            PosY = formHeight - Height * 2;
             Image playerImage = Properties.Resources.spaceship;
 
             PictureBox = new PictureBox()
             {
                 Tag = "player",
-                Width = 64,
-                Height = 64,
+                Width = Width,
+                Height = Height,
                 Left = PosX,
                 Top = PosY,
                 Image = playerImage,
@@ -48,8 +52,7 @@ namespace SpaceInvasion.Scripts
 
             //PosX = formWidth / 2 - PictureBox.Width;
             //PosY = formHeight - PictureBox.Height * 2;
-            PosX = (formWidth - PictureBox.Width) / 2;
-            PosY = formHeight - PictureBox.Height * 2;
+            
             initialPosX = PosX;
             initialPosY = PosY;
 
@@ -70,42 +73,25 @@ namespace SpaceInvasion.Scripts
             PictureBox.Left = PosX;
             PictureBox.Top = PosY;
         }
-        //public PictureBox RenderPlayerPicturebox()
-        //{
-        //    return new PictureBox()
-        //    {
-        //        Tag = "player",
-        //        Width = Width,
-        //        Height = Height,
-        //        //Left = GameForm.formWidth / 2 - width,
-        //        //Left = posX,
-        //        //Top = GameForm.formHeight - height * 2 + 15,
-        //        //Top = posY,
-        //        Image = Properties.Resources.spaceship,
-        //        SizeMode = PictureBoxSizeMode.StretchImage
-        //    };
-        //}
+       
+        public void IncreaseScore(int points)
+        {
+            Score += points;
+        }
 
         public void Move()
         {
-            //if (moveLeft == true && PictureBox.Left > 0)
-            //    PictureBox.Left -= speed;
-
-            //if (moveRight == true && PictureBox.Left < (900 - 85) - 10)//(GameForm.formWidth - PictureBox.Width))
-            //    PictureBox.Left += speed;
             if (moveLeft == true && PosX > 0)
             {
                 PosX -= Speed;
                 PictureBox.Left = PosX;
             }
                 
-
             if (moveRight == true && PosX < (900 - 85) - 10)//(GameForm.formWidth - PictureBox.Width))
             {
                 PosX += Speed;
                 PictureBox.Left = PosX;
             }    
-
         }
 
         public void IntitializeShooting()
