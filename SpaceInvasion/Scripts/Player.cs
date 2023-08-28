@@ -19,7 +19,9 @@ namespace SpaceInvasion.Scripts
         public int PosX { get; set; }
         public int PosY { get; set; }
         public PictureBox PictureBox { get; }
-        public PictureBox Bullet { get; } //{ Image = Properties.Resources.bullet };
+        //public PictureBox Bullet { get; } //{ Image = Properties.Resources.bullet };
+
+        public List<Bullet> activeBullets { get; set; }
 
         public bool moveLeft, moveRight, shooting;
         private readonly int initialPosX;
@@ -37,6 +39,9 @@ namespace SpaceInvasion.Scripts
             Height = 64;
             PosX = (formWidth - Width) / 2;
             PosY = formHeight - Height * 2;
+
+            activeBullets = new List<Bullet>();
+
             Image playerImage = Properties.Resources.spaceship;
 
             PictureBox = new PictureBox()
@@ -56,14 +61,14 @@ namespace SpaceInvasion.Scripts
             initialPosX = PosX;
             initialPosY = PosY;
 
-            Image bulletImage = Properties.Resources.bullet;
+            //Image bulletImage = Properties.Resources.bullet;
 
-            Bullet = new PictureBox
-            {
-                Tag = "bullet",
-                Image = bulletImage,
-                Left = -300
-            };
+            //Bullet = new PictureBox
+            //{
+            //    Tag = "bullet",
+            //    Image = bulletImage,
+            //    Left = 5
+            //};
         }
         public void Reset()
         {
@@ -98,30 +103,58 @@ namespace SpaceInvasion.Scripts
         { 
             shooting = true;
 
-            Bullet.Top = PictureBox.Top - (Bullet.Height + 5);
-            Bullet.Left = PictureBox.Left + (PictureBox.Width / 2);
+            //Bullet.Top = PictureBox.Top - (Bullet.Height + 5);
+            //Bullet.Left = PictureBox.Left + (PictureBox.Width / 2);
+
+            activeBullets.Add(new Bullet(PictureBox.Left + PictureBox.Width / 2, PictureBox.Top));
 
         }
 
         public void Shoot()
         {
-            int bulletSpeed = 20;
-            
-            if (shooting == true)
+            //int bulletSpeed = 20;
+
+            //if (shooting == true)
+            //{
+            //    bulletSpeed = 20;
+            //    Bullet.Top -= bulletSpeed;
+            //}
+            //else
+            //{
+            //    Bullet.Left = 5;// -300
+            //    bulletSpeed = 0;
+            //}
+
+            //if (Bullet.Top < -30)
+            //{
+            //    shooting = false;
+            //}
+
+            if (shooting)
             {
-                bulletSpeed = 20;
-                Bullet.Top -= bulletSpeed;
-            }
-            else
-            {
-                Bullet.Left = -300;
-                bulletSpeed = 0;
+                foreach (var bullet in activeBullets)
+                {
+                    bullet.Move();
+                    //if(bullet.Y < 0)
+                    //{
+                    //    bullet.IsActive = false;
+                    //    //shooting = false;
+                    //}
+                    //if (!bullet.IsActive)
+                    //    shooting = false;
+                }
             }
 
-            if (Bullet.Top < -30)
-            {
-                shooting = false;
-            }
+            // Remove bullets that are out of bounds
+            
+            //activeBullets.RemoveAll(bullet => bullet.Y < 0);
+            RemoveInactiveBullets();
+            //shooting = false;
+        }
+
+        public void RemoveInactiveBullets()
+        {
+            activeBullets.RemoveAll(bullet => !bullet.IsActive);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace SpaceInvasion
         private Player player;
         private EnemySpawner enemySpawner;
         private HighscoreSystem highscoreSystem;
-
+        private GameBackground background;
 
         //HighscoreSystem highscoreSystem = new HighscoreSystem();
         //EnemySpawner enemySpawner = new EnemySpawner(100, 5, formWidth); //100, 5
@@ -63,23 +63,41 @@ namespace SpaceInvasion
 
             UpdateHealthAndScore();
 
-            UpdatePlayerAndEnemies();
+            UpdatePlayer();
+
+            UpdateEnemies();
 
 
-            //background.Update();
+            background.Update();
 
-
+            //Layers();
 
         }
 
-        
-        //public void AddStars()
-        //{
-        //    foreach(var star in background.stars)
-        //    {
-        //        Controls.Add(star.PictureBox);
-        //    }
-        //}
+        public void Layers()
+        {
+            foreach (var star in background.stars)
+            {
+                this.Controls.SetChildIndex(star.PictureBox, 0); // Send stars to the back
+            }
+
+            foreach (var enemy in enemySpawner.EnemyList)
+            {
+                this.Controls.SetChildIndex(enemy.PictureBox, this.Controls.Count - 1); // Bring enemies to the front
+            }
+        }
+
+        public void AddStars()
+        {
+            foreach (var star in background.stars)
+            {
+                Controls.Add(star.PictureBox);
+                //this.Controls.SetChildIndex(star.PictureBox, 0);
+                star.PictureBox.BackColor = Color.Transparent;
+                //Controls.SetChildIndex(star.PictureBox, 0);
+                //star.PictureBox.SendToBack();
+            }
+        }
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
@@ -132,16 +150,41 @@ namespace SpaceInvasion
             foreach (var enemy in enemySpawner.EnemyList)
             {
                 Controls.Add(enemy.PictureBox);
+                enemy.PictureBox.BringToFront();
+                enemy.PictureBox.BackColor = Color.Transparent;
+                //Controls.SetChildIndex(enemy.PictureBox, Controls.Count - 1);
             }
         }
 
-        private void UpdatePlayerAndEnemies()
+        private void UpdatePlayer()
+        {
+            player.Move();
+            player.Shoot();
+
+            foreach (var bullet in player.activeBullets)
+            {
+                Controls.Add(bullet.PictureBox);
+                if(bullet.Y < 0)
+                {
+                    bullet.IsActive = false;
+                    player.shooting = false;
+                }
+                if (!bullet.IsActive)
+                {
+                    Controls.Remove(bullet.PictureBox);
+                }
+            }
+            player.RemoveInactiveBullets();
+        }
+
+        private void UpdateEnemies()
         {
             //label1.Text = enemySpawner.NewFrequency.ToString() + " " + enemySpawner.EnemySpawnSpeed.ToString();
-            label1.Text = formWidth.ToString() + " " + formHeight.ToString();
-            player.Move();
+            //label1.Text = formWidth.ToString() + " " + formHeight.ToString();
+            //label1.Visible = false;
+            label1.Text = enemySpawner.EnemyList.Count.ToString() + " " + player.activeBullets.Count.ToString() +  " " + background.stars.Count.ToString();
 
-            player.Shoot();
+            
 
             foreach (var enemy in enemySpawner.EnemyList)
             {
@@ -153,24 +196,45 @@ namespace SpaceInvasion
                     {
                         player.Health -= 10;
                         enemy.HasDealtDamage = true;
-                        enemy.PictureBox.Visible = false;
+                        //enemy.PictureBox.Visible = false;
+                        //Controls.Remove(enemy.PictureBox);
                     }
                     if (enemy.PictureBox.Top > formHeight)
                     {
                         player.Health -= 10;
                         enemy.HasDealtDamage = true;
-                        enemy.PictureBox.Visible = false;
+                        //enemy.PictureBox.Visible = false;
+                        //Controls.Remove(enemy.PictureBox);
                     }
-                    if (enemy.Collided(player.Bullet))
+                    //if (enemy.Collided(player.Bullet))
+                    //{
+                    //    player.IncreaseScore(10);
+                    //    enemy.IsDead = true;
+                    //    enemy.PictureBox.Visible = false;
+                    //    player.shooting = false;
+                    //}
+                    foreach (var bullet in player.activeBullets)
                     {
-                        player.IncreaseScore(10);
-                        enemy.IsDead = true;
-                        enemy.PictureBox.Visible = false;
-                        player.shooting = false;
+                        if (enemy.Collided(bullet.PictureBox))
+                        {
+                            player.IncreaseScore(10);
+                            enemy.IsDead = true;
+                            //enemy.PictureBox.Visible = false;
+                            //Controls.Remove(enemy.PictureBox);
+                            //bullet.PictureBox.Visible = false;
+                            bullet.IsActive = false;
+                            Controls.Remove(bullet.PictureBox);
+                            player.shooting = false;
+
+                        }
+                    }
+                    if(enemy.IsDead || enemy.HasDealtDamage)
+                    {
+                        Controls.Remove(enemy.PictureBox);
                     }
                 }
             }
-            enemySpawner.EnemyList.RemoveAll(enemy => enemy.IsDead && enemy.HasDealtDamage);
+            enemySpawner.EnemyList.RemoveAll(enemy => enemy.IsDead || enemy.HasDealtDamage);
 
         }
 
@@ -211,24 +275,20 @@ namespace SpaceInvasion
             healthText.Text = "Health: " + player.Health.ToString();
         }
 
-        //private void InitializePlayer()
-        //{
-        //    player.Reset();
-
-        //    Controls.Add(player.PictureBox);
-        //    Controls.Add(player.Bullet);
-        //}
-
-
         private void InitializeGame()
         {
+            background = new GameBackground(30, formWidth, formHeight);
+            AddStars();
             player = new Player(100, 8, formWidth, formHeight);
             //player = new Player(100, 8, 900, 700);
             Controls.Add(player.PictureBox);
-            Controls.Add(player.Bullet);
+            player.PictureBox.BringToFront();
+            player.PictureBox.BackColor = Color.Transparent;
+            //this.Controls.SetChildIndex(player.PictureBox, this.Controls.Count - 1);
+            //Controls.Add(player.Bullet);
             enemySpawner = new EnemySpawner(100, 5, formWidth);
             highscoreSystem = new HighscoreSystem();
-
+           
             
             gameTimer.Start();
             gameOverLabel.Visible = false;
@@ -246,8 +306,6 @@ namespace SpaceInvasion
             mainForm.Show();
             this.Hide();
         }
-
-
 
         private void GameOver()
         {

@@ -62,10 +62,10 @@ namespace SpaceInvasion.Scripts
                 HasDealtDamage = true;
             }
 
-            if (player.Bullet.Bounds.IntersectsWith(PictureBox.Bounds))
-            {
-                IsDead = true;
-            }
+            //if (player.Bullet.Bounds.IntersectsWith(PictureBox.Bounds))
+            //{
+            //    IsDead = true;
+            //}
 
             if (player.PictureBox.Bounds.IntersectsWith(PictureBox.Bounds))
             {

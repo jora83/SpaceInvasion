@@ -6,34 +6,34 @@ using System.Threading.Tasks;
 
 namespace SpaceInvasion.Scripts
 {
-    public class Star
+    public class Bullet
     {
+        private const int BulletSpeed = 20;
         public int X { get; set; }
         public int Y { get; set; }
-        public int Speed { get; set; }
-        public PictureBox PictureBox { get; set; }
+        public PictureBox PictureBox { get; private set; }
 
-        public Star(int x, int y, int speed, Image image)
+        public bool IsActive { get; set; }
+
+        public Bullet(int x, int y)
         {
             X = x;
             Y = y;
-            Speed = speed;
+
+            IsActive = true;
 
             PictureBox = new PictureBox
             {
                 Location = new Point(x, y),
-                Size = new Size(20, 20), // Adjust size as needed
-                Image = image,
+                Size = new Size(5, 15), // Adjust size as needed
+                Image = Properties.Resources.bullet,
                 BackColor = Color.Transparent
-
             };
-            //PictureBox.SendToBack();
         }
 
         public void Move()
         {
-            Y += Speed;
-            //PictureBox.Location = new Point(X, Y);
+            Y -= BulletSpeed;
             PictureBox.Top = Y;
         }
     }
