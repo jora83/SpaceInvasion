@@ -36,7 +36,7 @@ namespace SpaceInvasion.Scripts
             };
 
             HashSet<Point> usedPositions = new HashSet<Point>();
-            int spacing = 50; // Adjust spacing as needed
+            int spacing = 50;
 
             for (int i = 0; i < starCount; i++)
             {
@@ -81,56 +81,5 @@ namespace SpaceInvasion.Scripts
                 }
             }
         }
-
-       
     }
-
-
-    //public class GameBackground
-    //{
-    //    private List<Star> stars;
-    //    private Random random;
-    //    private Image[] starImages;
-    //    private int maxWidth;
-    //    private int maxHeight;
-
-    //    public List<Star> Stars { get; set; }
-
-    //    public GameBackground(int starCount, int maxWidth, int maxHeight)
-    //    {
-    //        Stars = new List<Star>();
-    //        random = new Random();
-
-    //        // Load star images (adjust paths as needed)
-    //        starImages = new Image[]
-    //        {
-    //            Properties.Resources.star1
-    //            // Add more images here
-    //        };
-
-    //        // Initialize stars with random positions, speeds, and images
-    //        for (int i = 0; i < starCount; i++)
-    //        {
-    //            int x = random.Next(0, maxWidth);
-    //            int y = random.Next(0, maxHeight);
-    //            int speed = random.Next(1, 5);
-    //            Image image = starImages[random.Next(0, starImages.Length)];
-    //            Stars.Add(new Star(x, y, speed, image));
-    //        }
-    //    }
-
-    //    public void Update()
-    //    {
-    //        foreach (Star star in Stars)
-    //        {
-    //            star.Move();
-
-    //            if (star.Y > maxHeight)
-    //            {
-    //                star.Y = 0;
-    //                star.X = random.Next(0, maxWidth);
-    //            }
-    //        }
-    //    }
-    //}
 }

@@ -8,7 +8,7 @@ namespace SpaceInvasion.Scripts
 {
     public class Bullet
     {
-        private const int BulletSpeed = 20;
+        private const int BulletSpeed = Constants.BulletSpeed;
         public int X { get; set; }
         public int Y { get; set; }
         public PictureBox PictureBox { get; private set; }
@@ -25,7 +25,7 @@ namespace SpaceInvasion.Scripts
             PictureBox = new PictureBox
             {
                 Location = new Point(x, y),
-                Size = new Size(5, 15), // Adjust size as needed
+                Size = new Size(Constants.BulletWidth, Constants.BulletHeight), 
                 Image = Properties.Resources.bullet,
                 BackColor = Color.Transparent
             };

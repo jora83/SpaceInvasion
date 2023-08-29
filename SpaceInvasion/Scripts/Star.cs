@@ -27,13 +27,11 @@ namespace SpaceInvasion.Scripts
                 BackColor = Color.Transparent
 
             };
-            //PictureBox.SendToBack();
         }
 
         public void Move()
         {
             Y += Speed;
-            //PictureBox.Location = new Point(X, Y);
             PictureBox.Top = Y;
         }
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpaceInvasion.Scripts
 {
-    public class Enemies
+    public class Enemy
     {
         private static Random rnd = new Random();
         //public static int InitialSpeed{ get; set;} = 5
@@ -20,7 +20,7 @@ namespace SpaceInvasion.Scripts
         private static Image[] enemyImages = new Image[] { Properties.Resources.alien1, Properties.Resources.alien2,
                                                     Properties.Resources.alien3, Properties.Resources.alien4 };
 
-        public Enemies(int speed, int posX, int posY) 
+        public Enemy(int speed, int posX, int posY) 
         {
             Speed = speed;
             PosX = posX;
@@ -32,8 +32,7 @@ namespace SpaceInvasion.Scripts
             PictureBox = new PictureBox()
             {
                 Tag = "enemy",
-                Width = 64, //75
-                Height = 64, //65
+                Size = new Size(Constants.EnemyWidth, Constants.EnemyHeight),
                 Left = PosX,
                 Top = PosY,
                 Image = enemyImage,

@@ -54,7 +54,7 @@
             // gameTimer
             // 
             gameTimer.Interval = 16;
-            gameTimer.Tick += mainGameTimerEvent;
+            gameTimer.Tick += GameLoop;
             // 
             // healthText
             // 
@@ -81,9 +81,8 @@
             gameOverLabel.Dock = DockStyle.Fill;
             gameOverLabel.Location = new Point(0, 0);
             gameOverLabel.Name = "gameOverLabel";
-            gameOverLabel.Size = new Size(33, 41);
+            gameOverLabel.Size = new Size(0, 41);
             gameOverLabel.TabIndex = 8;
-            gameOverLabel.Text = "a";
             gameOverLabel.TextAlign = ContentAlignment.MiddleCenter;
             gameOverLabel.Visible = false;
             // 

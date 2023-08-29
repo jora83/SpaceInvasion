@@ -14,8 +14,6 @@ namespace SpaceInvasion.Scripts
     {
 
         private Dictionary<string, int> highscores = new Dictionary<string, int>();
-        //private string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Highscores.json" );
-        //string filePath = @"C:\\Users\\joraa\\source\\repos\\SpaceInvasion\\SpaceInvasion\\Highscores.json";
         string relativePath = "Highscores.json";
         string filePath;
         public HighscoreSystem()
@@ -28,7 +26,6 @@ namespace SpaceInvasion.Scripts
         {
             if (highscores.ContainsKey(username))
             {
-                // If the user already exists, update the score if it's higher
                 if (score > highscores[username])
                 {
                     highscores[username] = score;
@@ -36,7 +33,6 @@ namespace SpaceInvasion.Scripts
             }
             else
             {
-                // If the user doesn't exist, add them to the highscores
                 highscores[username] = score;
             }
         }
