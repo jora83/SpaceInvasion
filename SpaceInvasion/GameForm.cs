@@ -93,7 +93,7 @@ namespace SpaceInvasion
             {
                 Controls.Add(star.PictureBox);
                 //this.Controls.SetChildIndex(star.PictureBox, 0);
-                star.PictureBox.BackColor = Color.Transparent;
+                //star.PictureBox.BackColor = Color.Transparent;
                 //Controls.SetChildIndex(star.PictureBox, 0);
                 //star.PictureBox.SendToBack();
             }
@@ -283,7 +283,7 @@ namespace SpaceInvasion
             //player = new Player(100, 8, 900, 700);
             Controls.Add(player.PictureBox);
             player.PictureBox.BringToFront();
-            player.PictureBox.BackColor = Color.Transparent;
+            //player.PictureBox.BackColor = Color.Transparent;
             //this.Controls.SetChildIndex(player.PictureBox, this.Controls.Count - 1);
             //Controls.Add(player.Bullet);
             enemySpawner = new EnemySpawner(100, 5, formWidth);
