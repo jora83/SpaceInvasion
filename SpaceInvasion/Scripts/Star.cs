@@ -22,10 +22,8 @@ namespace SpaceInvasion.Scripts
             PictureBox = new PictureBox
             {
                 Location = new Point(x, y),
-                Size = new Size(20, 20), // Adjust size as needed
-                Image = image,
-                BackColor = Color.Transparent
-
+                Size = new Size(Constants.StarWidth, Constants.StarHeight),
+                Image = image
             };
         }
 

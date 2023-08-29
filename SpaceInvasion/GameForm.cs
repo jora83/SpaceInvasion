@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
+using System.Diagnostics;
 
 namespace SpaceInvasion
 {
@@ -33,6 +34,7 @@ namespace SpaceInvasion
             formWidth = this.Width;
             formHeight = this.Height;
             InitializeGame();
+            DoubleBuffered = false;
         }
 
         private void GameLoop(object sender, EventArgs e)
@@ -48,6 +50,7 @@ namespace SpaceInvasion
             UpdateEnemies();
 
             UpdateBackground();
+            //Debug.WriteLine(player.PictureBox.Left + " " + player.PictureBox.Right + " " + player.PosX);
         }
 
         private void UpdateBackground()
@@ -126,7 +129,7 @@ namespace SpaceInvasion
             foreach (var bullet in player.activeBullets)
             {
                 Controls.Add(bullet.PictureBox);
-                if (bullet.Y < 0)
+                if (bullet.PosY < 0)
                 {
                     bullet.IsActive = false;
                     player.shooting = false;
@@ -176,7 +179,7 @@ namespace SpaceInvasion
                     }
                 }
             }
-            enemySpawner.EnemyList.RemoveAll(enemy => enemy.IsDead || enemy.HasDealtDamage);
+            enemySpawner.RemoveEnemies();
 
         }
 
@@ -219,15 +222,21 @@ namespace SpaceInvasion
 
         private void InitializeGame()
         {
-            player = new Player(100, 8, formWidth, formHeight);
+            player = new Player(Constants.InitialPlayerHealth, Constants.PlayerSpeed, formWidth, formHeight);
             Controls.Add(player.PictureBox);
             player.PictureBox.BringToFront();
+
             enemySpawner = new EnemySpawner(Constants.EnemySpawnFrequency, Constants.EnemySpawnSpeed, formWidth);
             highscoreSystem = new HighscoreSystem();
             background = new GameBackground(30, formWidth, formHeight);
             AddStars();
             gameTimer.Start();
             gameOverLabel.Visible = false;
+        }
+
+        private void ResetGame()
+        {
+            player.Reset();
         }
 
         private void GoToMainMenu()
@@ -242,17 +251,27 @@ namespace SpaceInvasion
         private void GameOver()
         {
             isGameOver = true;
-            foreach (Control y in this.Controls)
+
+            foreach (var enemy in enemySpawner.EnemyList)
             {
-                if (y is PictureBox && y.Tag != null && y.Tag.ToString() == "enemy")
-                {
-                    Controls.Remove(y);
-                }
+                enemy.IsDead = true;
+                Controls.Remove(enemy.PictureBox);
             }
+            enemySpawner.RemoveEnemies();
+
+            foreach (var bullet in player.activeBullets)
+            {
+                bullet.IsActive = false;
+                Controls.Remove(bullet.PictureBox);
+            }
+            player.RemoveInactiveBullets();
+
             gameOverLabel.Text = Environment.NewLine + "Game Over!" + Environment.NewLine + "Your score is: " + player.Score.ToString()
                 + Environment.NewLine + "Press enter to try again" + Environment.NewLine + "Press exit to go to the Main Menu";
             gameOverLabel.Visible = true;
+
             highscoreSystem.AddUser(username, player.Score);
+
             gameTimer.Stop();
 
         }

@@ -28,8 +28,10 @@ namespace SpaceInvasion.Scripts
             Health = health;
             Speed = speed;
             Score = 0;
-            PosX = (formWidth - Constants.PlayerWidth - Constants.PictureboxMargin) / 2;
+            PosX = (formWidth - Constants.PlayerWidth /*- Constants.PictureboxMargin*/) / 2;
             PosY = formHeight - Constants.PlayerHeight * 2;
+            initialPosX = PosX;
+            initialPosY = PosY;
 
             activeBullets = new List<Bullet>();
 
@@ -37,25 +39,22 @@ namespace SpaceInvasion.Scripts
 
             PictureBox = new PictureBox()
             {
-                Tag = "player",
+                Location = new Point(PosX, PosY),
                 Size = new Size(Constants.PlayerWidth, Constants.PlayerHeight),
-                Left = PosX,
-                Top = PosY,
-                Image = playerImage,
-                SizeMode = PictureBoxSizeMode.StretchImage
+                Image = playerImage                
             };
 
-            initialPosX = PosX;
-            initialPosY = PosY;
+            
         }
-        //public void Reset()
-        //{
-        //    Health = 100;
-        //    PosX = initialPosX;
-        //    PosY = initialPosY;
-        //    PictureBox.Left = PosX;
-        //    PictureBox.Top = PosY;
-        //}
+        public void Reset()
+        {
+            Health = Constants.InitialPlayerHealth;
+            Score = Constants.InitialPlayerScore;
+            PosX = initialPosX;
+            PosY = initialPosY;
+            PictureBox.Left = PosX;
+            PictureBox.Top = PosY;
+        }
 
         public void IncreaseScore(int points)
         {
@@ -70,7 +69,7 @@ namespace SpaceInvasion.Scripts
                 PictureBox.Left = PosX;
             }
 
-            if (moveRight == true && PosX < formWidth - Constants.PlayerWidth - Constants.PictureboxMargin)
+            if (moveRight == true &&  PosX < formWidth - Constants.PlayerWidth /*- Constants.PictureboxMargin*/)
             {
                 PosX += Speed;
                 PictureBox.Left = PosX;

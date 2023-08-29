@@ -14,11 +14,11 @@ namespace SpaceInvasion.Scripts
     {
 
         private Dictionary<string, int> highscores = new Dictionary<string, int>();
-        string relativePath = "Highscores.json";
         string filePath;
+
         public HighscoreSystem()
         {
-            filePath = Path.Combine(Application.StartupPath, relativePath);
+            filePath = Path.Combine(Application.StartupPath, Constants.HighscoresFileName);
             LoadHighscores();
         }
 

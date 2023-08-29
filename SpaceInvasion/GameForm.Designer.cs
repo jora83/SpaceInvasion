@@ -32,7 +32,6 @@
             scoreText = new Label();
             gameTimer = new System.Windows.Forms.Timer(components);
             healthText = new Label();
-            label1 = new Label();
             gameOverLabel = new Label();
             exitButton = new Button();
             pauseBackground = new PictureBox();
@@ -66,15 +65,6 @@
             healthText.TabIndex = 6;
             healthText.Text = "Health: 100";
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(369, 31);
-            label1.Name = "label1";
-            label1.Size = new Size(97, 41);
-            label1.TabIndex = 7;
-            label1.Text = "label1";
-            // 
             // gameOverLabel
             // 
             gameOverLabel.AutoSize = true;
@@ -103,9 +93,9 @@
             // 
             pauseBackground.BackColor = Color.FromArgb(30, 30, 100);
             pauseBackground.Dock = DockStyle.Right;
-            pauseBackground.Location = new Point(716, 0);
+            pauseBackground.Location = new Point(797, 0);
             pauseBackground.Name = "pauseBackground";
-            pauseBackground.Size = new Size(166, 653);
+            pauseBackground.Size = new Size(85, 653);
             pauseBackground.TabIndex = 11;
             pauseBackground.TabStop = false;
             pauseBackground.Visible = false;
@@ -130,7 +120,6 @@
             Controls.Add(pauseBackground);
             Controls.Add(exitButton);
             Controls.Add(gameOverLabel);
-            Controls.Add(label1);
             Controls.Add(healthText);
             Controls.Add(scoreText);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
@@ -149,7 +138,6 @@
         private Label scoreText;
         private System.Windows.Forms.Timer gameTimer;
         private Label healthText;
-        private Label label1;
         private Label gameOverLabel;
         private Button exitButton;
         private PictureBox pauseBackground;

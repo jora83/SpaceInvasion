@@ -31,12 +31,10 @@ namespace SpaceInvasion.Scripts
 
             PictureBox = new PictureBox()
             {
-                Tag = "enemy",
+                Location = new Point(posX, posY),
                 Size = new Size(Constants.EnemyWidth, Constants.EnemyHeight),
-                Left = PosX,
-                Top = PosY,
-                Image = enemyImage,
-                SizeMode = PictureBoxSizeMode.StretchImage
+                Image = enemyImage
+                //SizeMode = PictureBoxSizeMode.StretchImage
             };
         }
 
