@@ -18,6 +18,8 @@ namespace SpaceInvasion.Scripts
         public const int InitialEnemySpawnFrequency = 100;
         public const int EnemyWidth = 82;
         public const int EnemyHeight = 64;
+        public const int EnemyPosY1 = 300;
+        public const int EnemyPosY2 = 500;
 
         public const int BulletSpeed = 20;
         public const int BulletWidth = 5;

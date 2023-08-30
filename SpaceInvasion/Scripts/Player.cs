@@ -38,7 +38,7 @@ namespace SpaceInvasion.Scripts
 
             activeBullets = new List<Bullet>();
 
-            Image playerImage = Properties.Resources.spaceship;
+            Image playerImage = Properties.Resources.player;
 
             PictureBox = new PictureBox()
             {

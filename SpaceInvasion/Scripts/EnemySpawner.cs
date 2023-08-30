@@ -36,7 +36,7 @@ namespace SpaceInvasion.Scripts
         public void SpawnEnemies(int score)
         {
             int enemyPosX = rnd.Next(0, formWidth - Constants.EnemyWidth);
-            int enemyPosY = rnd.Next(300, 500) * -1;
+            int enemyPosY = rnd.Next(Constants.EnemyPosY1, Constants.EnemyPosY2) * -1;
 
             frequency--;
 
@@ -46,7 +46,7 @@ namespace SpaceInvasion.Scripts
                 EnemyList.Add(new Enemy(enemySpeed, enemyPosX, enemyPosY));
             }
 
-            if (score > 0 && score % 100 == 0 && score <= 200 && increaseSpeedAndFrequency)
+            if (score > 0 && score % 100 == 0 && score <= 500 && increaseSpeedAndFrequency)
             {
                 enemySpeed++; 
                 newFrequency -= 5;
