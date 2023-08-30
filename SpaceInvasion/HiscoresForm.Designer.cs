@@ -32,6 +32,7 @@
             playerBindingSource = new BindingSource(components);
             dataGridView = new DataGridView();
             backButton = new Button();
+            highscoresLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)playerBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
@@ -52,20 +53,31 @@
             // 
             // backButton
             // 
+            backButton.BackColor = Color.LightSeaGreen;
             backButton.Location = new Point(350, 583);
             backButton.Name = "backButton";
             backButton.Size = new Size(200, 60);
             backButton.TabIndex = 1;
             backButton.Text = "Back";
-            backButton.UseVisualStyleBackColor = true;
+            backButton.UseVisualStyleBackColor = false;
             backButton.Click += backButton_Click;
+            // 
+            // highscoresLabel
+            // 
+            highscoresLabel.AutoSize = true;
+            highscoresLabel.Location = new Point(368, 21);
+            highscoresLabel.Name = "highscoresLabel";
+            highscoresLabel.Size = new Size(165, 41);
+            highscoresLabel.TabIndex = 2;
+            highscoresLabel.Text = "Highscores";
             // 
             // HiscoresForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(0, 0, 64);
+            BackColor = Color.MidnightBlue;
             ClientSize = new Size(882, 653);
+            Controls.Add(highscoresLabel);
             Controls.Add(backButton);
             Controls.Add(dataGridView);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
@@ -76,11 +88,13 @@
             ((System.ComponentModel.ISupportInitialize)playerBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
         private BindingSource playerBindingSource;
         private DataGridView dataGridView;
         private Button backButton;
+        private Label highscoresLabel;
     }
 }

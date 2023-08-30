@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using SpaceInvasion.Properties;
 
 namespace SpaceInvasion.Scripts
 {

@@ -9,54 +9,59 @@ namespace SpaceInvasion.Scripts
 {
     public class EnemySpawner
     {
-        private static Random rnd = new Random();
-        public int Frequency { get; set; }
-        public int NewFrequency { get; set; }
-        public int EnemySpawnSpeed { get; set; }
-        private int FormWidth { get; set; }
-        private bool IncreaseSpeedAndFrequency { get; set; }
-        public List<Enemy> EnemyList { get; set; }
+        private Random rnd = new Random();
+        private int formWidth;
+        private bool increaseSpeedAndFrequency;
+        private int frequency;
+        private int newFrequency;
+        private int enemySpeed;
+        public List<Enemy> EnemyList { get; } = new List<Enemy>();
 
-        public EnemySpawner(int frequency, int speed, int formWidth)
+        public EnemySpawner(int frequency, int enemySpeed, int formWidth)
         {
-            Frequency = frequency;
-            NewFrequency = frequency;
-            EnemySpawnSpeed = speed;
-            FormWidth = formWidth;
-            EnemyList = new List<Enemy>();
+            this.frequency = frequency;
+            this.newFrequency = frequency;
+            this.enemySpeed = enemySpeed;
+            this.formWidth = formWidth;
+            EnemyList.Clear();
+        }
+
+        public void Reset()
+        {
+            frequency = Constants.InitialEnemySpawnFrequency;
+            newFrequency = Constants.InitialEnemySpawnFrequency;
             EnemyList.Clear();
         }
 
         public void SpawnEnemies(int score)
         {
-            int enemyPosX = rnd.Next(0, FormWidth - Constants.EnemyWidth);
+            int enemyPosX = rnd.Next(0, formWidth - Constants.EnemyWidth);
             int enemyPosY = rnd.Next(300, 500) * -1;
 
-            Frequency--;
+            frequency--;
 
-            if (Frequency == 0)
+            if (frequency == 0)
             {
-                Frequency = NewFrequency;
-                EnemyList.Add(new Enemy(EnemySpawnSpeed, enemyPosX, enemyPosY));
+                frequency = newFrequency;
+                EnemyList.Add(new Enemy(enemySpeed, enemyPosX, enemyPosY));
             }
 
-            if (score > 0 && score % 100 == 0 && !IncreaseSpeedAndFrequency)
+            if (score > 0 && score % 100 == 0 && score <= 200 && increaseSpeedAndFrequency)
             {
-                EnemySpawnSpeed++; 
-                NewFrequency -= 5;
-                IncreaseSpeedAndFrequency = true;
+                enemySpeed++; 
+                newFrequency -= 5;
+                increaseSpeedAndFrequency = false;
             }
-
-            if (score % 100 != 0)
+            else if (score % 100 != 0)
             {
-                IncreaseSpeedAndFrequency = false;
+                increaseSpeedAndFrequency = true;
             }
 
         }
 
         public void RemoveEnemies()
         {
-            EnemyList.RemoveAll(enemy => enemy.IsDead || enemy.HasDealtDamage);
+            EnemyList.RemoveAll(enemy => enemy.Dispose);
         }
     }
 }

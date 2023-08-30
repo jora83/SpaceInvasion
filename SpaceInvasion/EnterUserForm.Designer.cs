@@ -51,19 +51,20 @@
             // 
             // enterButton
             // 
+            enterButton.BackColor = Color.LightSeaGreen;
             enterButton.Location = new Point(350, 368);
             enterButton.Name = "enterButton";
             enterButton.Size = new Size(200, 60);
             enterButton.TabIndex = 2;
             enterButton.Text = "Enter";
-            enterButton.UseVisualStyleBackColor = true;
+            enterButton.UseVisualStyleBackColor = false;
             enterButton.Click += enterButton_Click;
             // 
             // EnterUserForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(0, 0, 64);
+            BackColor = Color.MidnightBlue;
             ClientSize = new Size(882, 653);
             Controls.Add(enterButton);
             Controls.Add(userLabel);

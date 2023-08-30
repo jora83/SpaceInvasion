@@ -12,7 +12,6 @@ namespace SpaceInvasion.Scripts
         public int PosX { get; set; }
         public int PosY { get; set; }
         public PictureBox PictureBox { get; private set; }
-
         public bool IsActive { get; set; }
 
         public Bullet(int x, int y)

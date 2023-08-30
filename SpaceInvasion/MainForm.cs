@@ -4,7 +4,7 @@ namespace SpaceInvasion
 {
     public partial class MainForm : Form
     {
-        
+
         HighscoreSystem HighscoreSystem = new HighscoreSystem();
         public MainForm()
         {
@@ -33,15 +33,16 @@ namespace SpaceInvasion
 
         private void rulesButton_Click(object sender, EventArgs e)
         {
-
+            InformationsForm informationsForm = new InformationsForm();
+            this.Hide();
+            informationsForm.Show();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
         {
-            
             Application.Exit();
         }
 
-        
+
     }
 }

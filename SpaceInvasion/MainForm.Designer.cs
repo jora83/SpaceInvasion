@@ -30,13 +30,13 @@
         {
             startButton = new Button();
             hiscoresButton = new Button();
-            rulesButton = new Button();
+            informationsButton = new Button();
             exitButton = new Button();
             SuspendLayout();
             // 
             // startButton
             // 
-            startButton.BackColor = Color.FromArgb(0, 192, 192);
+            startButton.BackColor = Color.LightSeaGreen;
             startButton.Location = new Point(350, 178);
             startButton.Margin = new Padding(6);
             startButton.Name = "startButton";
@@ -48,7 +48,7 @@
             // 
             // hiscoresButton
             // 
-            hiscoresButton.BackColor = Color.FromArgb(0, 192, 192);
+            hiscoresButton.BackColor = Color.LightSeaGreen;
             hiscoresButton.Location = new Point(350, 247);
             hiscoresButton.Name = "hiscoresButton";
             hiscoresButton.Size = new Size(200, 60);
@@ -57,20 +57,20 @@
             hiscoresButton.UseVisualStyleBackColor = false;
             hiscoresButton.Click += hiscoresButton_Click;
             // 
-            // rulesButton
+            // informationsButton
             // 
-            rulesButton.BackColor = Color.FromArgb(0, 192, 192);
-            rulesButton.Location = new Point(350, 313);
-            rulesButton.Name = "rulesButton";
-            rulesButton.Size = new Size(200, 60);
-            rulesButton.TabIndex = 2;
-            rulesButton.Text = "Rules";
-            rulesButton.UseVisualStyleBackColor = false;
-            rulesButton.Click += rulesButton_Click;
+            informationsButton.BackColor = Color.LightSeaGreen;
+            informationsButton.Location = new Point(350, 313);
+            informationsButton.Name = "informationsButton";
+            informationsButton.Size = new Size(200, 60);
+            informationsButton.TabIndex = 2;
+            informationsButton.Text = "Informations";
+            informationsButton.UseVisualStyleBackColor = false;
+            informationsButton.Click += rulesButton_Click;
             // 
             // exitButton
             // 
-            exitButton.BackColor = Color.FromArgb(0, 192, 192);
+            exitButton.BackColor = Color.LightSeaGreen;
             exitButton.Location = new Point(350, 379);
             exitButton.Name = "exitButton";
             exitButton.Size = new Size(200, 60);
@@ -83,10 +83,10 @@
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(0, 0, 64);
+            BackColor = Color.MidnightBlue;
             ClientSize = new Size(882, 653);
             Controls.Add(exitButton);
-            Controls.Add(rulesButton);
+            Controls.Add(informationsButton);
             Controls.Add(hiscoresButton);
             Controls.Add(startButton);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
@@ -101,7 +101,7 @@
 
         private Button startButton;
         private Button hiscoresButton;
-        private Button rulesButton;
+        private Button informationsButton;
         private Button exitButton;
     }
 }

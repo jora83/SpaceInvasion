@@ -11,14 +11,17 @@ namespace SpaceInvasion.Scripts
 {
     public class Player
     {
-        public int Health { get; set; }
+        private int speed;
+        private int posX;
+        private int posY;
+        public int Health { get; private set; }
         public int Score { get; private set; }
-        public int Speed { get; set; }
-        public int PosX { get; set; }
-        public int PosY { get; set; }
+        public bool Shooting { get; set; }
+        public bool MoveLeft { get; set; }
+        public bool MoveRight { get; set; }
         public PictureBox PictureBox { get; }
-        public List<Bullet> activeBullets { get; set; }
-        public bool moveLeft, moveRight, shooting;
+        public List<Bullet> activeBullets { get; private set; }
+        
         private readonly int initialPosX;
         private readonly int initialPosY;
 
@@ -26,12 +29,12 @@ namespace SpaceInvasion.Scripts
         public Player(int health, int speed, int formWidth, int formHeight)
         {
             Health = health;
-            Speed = speed;
-            Score = 0;
-            PosX = (formWidth - Constants.PlayerWidth /*- Constants.PictureboxMargin*/) / 2;
-            PosY = formHeight - Constants.PlayerHeight * 2;
-            initialPosX = PosX;
-            initialPosY = PosY;
+            this.speed = speed;
+            Score = Constants.InitialPlayerScore;
+            posX = (formWidth - Constants.PlayerWidth) / 2;
+            posY = formHeight - Constants.PlayerHeight * 2;
+            initialPosX = posX;
+            initialPosY = posY;
 
             activeBullets = new List<Bullet>();
 
@@ -39,7 +42,7 @@ namespace SpaceInvasion.Scripts
 
             PictureBox = new PictureBox()
             {
-                Location = new Point(PosX, PosY),
+                Location = new Point(posX, posY),
                 Size = new Size(Constants.PlayerWidth, Constants.PlayerHeight),
                 Image = playerImage                
             };
@@ -50,35 +53,40 @@ namespace SpaceInvasion.Scripts
         {
             Health = Constants.InitialPlayerHealth;
             Score = Constants.InitialPlayerScore;
-            PosX = initialPosX;
-            PosY = initialPosY;
-            PictureBox.Left = PosX;
-            PictureBox.Top = PosY;
+            posX = initialPosX;
+            posY = initialPosY;
+            PictureBox.Left = posX;
+            PictureBox.Top = posY;
+            activeBullets.Clear();
         }
 
-        public void IncreaseScore(int points)
+        public void IncreaseScore()
         {
-            Score += points;
+            Score += Constants.ScoreIncreasePerEnemy;
         }
 
-        public void Move(int formWidth)
+        public void DecreaseHealth()
         {
-            if (moveLeft == true && PosX > 0)
+            Health -= Constants.DamagePerEnemyCollision;
+        }
+        public void Move(int maxWidth)
+        {
+            if (MoveLeft == true && posX > 0)
             {
-                PosX -= Speed;
-                PictureBox.Left = PosX;
+                posX -= speed;
+                PictureBox.Left = posX;
             }
 
-            if (moveRight == true &&  PosX < formWidth - Constants.PlayerWidth /*- Constants.PictureboxMargin*/)
+            if (MoveRight == true &&  posX < maxWidth - Constants.PlayerWidth)
             {
-                PosX += Speed;
-                PictureBox.Left = PosX;
+                posX += speed;
+                PictureBox.Left = posX;
             }
         }
 
         public void IntitializeShooting()
         {
-            shooting = true;
+            Shooting = true;
             activeBullets.Add(new Bullet(PictureBox.Left + PictureBox.Width / 2, PictureBox.Top));
 
         }
@@ -86,7 +94,7 @@ namespace SpaceInvasion.Scripts
         public void Shoot()
         {
 
-            if (shooting)
+            if (Shooting)
             {
                 foreach (var bullet in activeBullets)
                 {

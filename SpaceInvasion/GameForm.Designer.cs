@@ -34,9 +34,9 @@
             healthText = new Label();
             gameOverLabel = new Label();
             exitButton = new Button();
-            pauseBackground = new PictureBox();
             resumeLabel = new Label();
-            ((System.ComponentModel.ISupportInitialize)pauseBackground).BeginInit();
+            pauseAndGameOverPictureBox = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pauseAndGameOverPictureBox).BeginInit();
             SuspendLayout();
             // 
             // scoreText
@@ -67,11 +67,11 @@
             // 
             // gameOverLabel
             // 
-            gameOverLabel.AutoSize = true;
+            gameOverLabel.BackColor = Color.Gray;
             gameOverLabel.Dock = DockStyle.Fill;
             gameOverLabel.Location = new Point(0, 0);
             gameOverLabel.Name = "gameOverLabel";
-            gameOverLabel.Size = new Size(0, 41);
+            gameOverLabel.Size = new Size(882, 653);
             gameOverLabel.TabIndex = 8;
             gameOverLabel.TextAlign = ContentAlignment.MiddleCenter;
             gameOverLabel.Visible = false;
@@ -89,20 +89,10 @@
             exitButton.Visible = false;
             exitButton.Click += exitButton_Click;
             // 
-            // pauseBackground
-            // 
-            pauseBackground.BackColor = Color.FromArgb(30, 30, 100);
-            pauseBackground.Dock = DockStyle.Right;
-            pauseBackground.Location = new Point(797, 0);
-            pauseBackground.Name = "pauseBackground";
-            pauseBackground.Size = new Size(85, 653);
-            pauseBackground.TabIndex = 11;
-            pauseBackground.TabStop = false;
-            pauseBackground.Visible = false;
-            // 
             // resumeLabel
             // 
             resumeLabel.AutoSize = true;
+            resumeLabel.BackColor = Color.Gray;
             resumeLabel.Location = new Point(220, 269);
             resumeLabel.Name = "resumeLabel";
             resumeLabel.Size = new Size(463, 41);
@@ -110,14 +100,25 @@
             resumeLabel.Text = "Press escape to resume the game";
             resumeLabel.Visible = false;
             // 
+            // pauseAndGameOverPictureBox
+            // 
+            pauseAndGameOverPictureBox.BackColor = Color.Gray;
+            pauseAndGameOverPictureBox.Dock = DockStyle.Fill;
+            pauseAndGameOverPictureBox.Location = new Point(0, 0);
+            pauseAndGameOverPictureBox.Name = "pauseAndGameOverPictureBox";
+            pauseAndGameOverPictureBox.Size = new Size(882, 653);
+            pauseAndGameOverPictureBox.TabIndex = 13;
+            pauseAndGameOverPictureBox.TabStop = false;
+            pauseAndGameOverPictureBox.Visible = false;
+            // 
             // GameForm
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(30, 30, 100);
+            BackColor = Color.MidnightBlue;
             ClientSize = new Size(882, 653);
+            Controls.Add(pauseAndGameOverPictureBox);
             Controls.Add(resumeLabel);
-            Controls.Add(pauseBackground);
             Controls.Add(exitButton);
             Controls.Add(gameOverLabel);
             Controls.Add(healthText);
@@ -129,7 +130,7 @@
             Text = "GameForm";
             KeyDown += KeyIsDown;
             KeyUp += KeyIsUp;
-            ((System.ComponentModel.ISupportInitialize)pauseBackground).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pauseAndGameOverPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -140,7 +141,7 @@
         private Label healthText;
         private Label gameOverLabel;
         private Button exitButton;
-        private PictureBox pauseBackground;
         private Label resumeLabel;
+        private PictureBox pauseAndGameOverPictureBox;
     }
 }

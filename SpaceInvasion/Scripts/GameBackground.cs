@@ -8,8 +8,8 @@ namespace SpaceInvasion.Scripts
 {
     public class GameBackground
     {
-        public List<Star> stars = new List<Star>();
-        private Random random;
+        public List<Star> Stars { get; private set; } = new List<Star>();
+        private Random rnd;
         private Image[] starImages;
         private int starCount;
         private int maxWidth;
@@ -21,37 +21,37 @@ namespace SpaceInvasion.Scripts
             this.maxWidth = maxWidth;
             this.maxHeight = maxHeight;
 
-            stars = GenerateStars();
+            Stars = GenerateStars();
         }
 
         private List<Star> GenerateStars()
         {
             List<Star> newStars = new List<Star>();
-            random = new Random();
+            rnd = new Random();
 
             starImages = new Image[]
             {
-                Properties.Resources.star1
-                // Add more images here
+                Properties.Resources.star1,
+                Properties.Resources.star2,
+                Properties.Resources.star3
             };
 
             HashSet<Point> usedPositions = new HashSet<Point>();
-            int spacing = 50;
+            int spacing = Constants.StarSpacing;
 
             for (int i = 0; i < starCount; i++)
             {
                 int x, y;
                 do
                 {
-                    x = random.Next(0, maxWidth);
-                    y = random.Next(0, maxHeight);
+                    x = rnd.Next(0, maxWidth);
+                    y = rnd.Next(0, maxHeight);
                 } while (IsTooClose(x, y, usedPositions, spacing));
 
                 usedPositions.Add(new Point(x, y));
 
-                //int speed = random.Next(1, 5);
-                int speed = 5;
-                Image image = starImages[random.Next(0, starImages.Length)];
+                int speed = Constants.StarSpeed;
+                Image image = starImages[rnd.Next(0, starImages.Length)];
                 newStars.Add(new Star(x, y, speed, image));
             }
 
@@ -70,14 +70,14 @@ namespace SpaceInvasion.Scripts
 
         public void Update()
         {
-            foreach (Star star in stars)
+            foreach (Star star in Stars)
             {
                 star.Move();
 
-                if (star.Y > maxHeight)
+                if (star.PosY > maxHeight)
                 {
-                    star.Y = 0;
-                    star.X = random.Next(0, maxWidth);
+                    star.PosY = 0;
+                    star.PosX = rnd.Next(0, maxWidth);
                 }
             }
         }
