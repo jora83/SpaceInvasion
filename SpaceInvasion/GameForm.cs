@@ -44,7 +44,7 @@ namespace SpaceInvasion
 
             SpawnEnemies();
 
-            UpdateHealthAndScore();
+            UpdateHealthAndScoreText();
 
             UpdateEnemies();
 
@@ -211,9 +211,10 @@ namespace SpaceInvasion
             {
                 GameOver();
             }
+            
         }
 
-        private void UpdateHealthAndScore()
+        private void UpdateHealthAndScoreText()
         {
             scoreText.Text = "Score: " + player.Score.ToString();
             healthText.Text = "Health: " + player.Health.ToString();
@@ -258,6 +259,8 @@ namespace SpaceInvasion
 
         private void GameOver()
         {
+            isGameOver = true;
+            
             gameTimer.Stop();
 
             isGameOver = true;
@@ -266,12 +269,11 @@ namespace SpaceInvasion
             pauseAndGameOverPictureBox.BringToFront();
 
             gameOverLabel.Text = Environment.NewLine + "Game Over!" + Environment.NewLine + "Your score is: " + player.Score.ToString()
-                + Environment.NewLine + "Press enter to try again" + Environment.NewLine + "Press exit to go to the Main Menu";
+                + Environment.NewLine + "Press enter to try again" + Environment.NewLine + "Press escape to go to the Main Menu";
             gameOverLabel.Visible = true;
             gameOverLabel.BringToFront();
 
             highscoreSystem.AddUser(username, player.Score);
-
         }
 
         private void GoToMainMenu()

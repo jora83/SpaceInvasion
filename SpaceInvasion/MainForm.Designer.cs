@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             startButton = new Button();
-            hiscoresButton = new Button();
+            highscoresButton = new Button();
             informationsButton = new Button();
             exitButton = new Button();
             SuspendLayout();
@@ -37,7 +37,7 @@
             // startButton
             // 
             startButton.BackColor = Color.LightSeaGreen;
-            startButton.Location = new Point(350, 178);
+            startButton.Location = new Point(350, 194);
             startButton.Margin = new Padding(6);
             startButton.Name = "startButton";
             startButton.Size = new Size(200, 60);
@@ -46,21 +46,21 @@
             startButton.UseVisualStyleBackColor = false;
             startButton.Click += startButton_Click;
             // 
-            // hiscoresButton
+            // highscoresButton
             // 
-            hiscoresButton.BackColor = Color.LightSeaGreen;
-            hiscoresButton.Location = new Point(350, 247);
-            hiscoresButton.Name = "hiscoresButton";
-            hiscoresButton.Size = new Size(200, 60);
-            hiscoresButton.TabIndex = 1;
-            hiscoresButton.Text = "Hiscores";
-            hiscoresButton.UseVisualStyleBackColor = false;
-            hiscoresButton.Click += hiscoresButton_Click;
+            highscoresButton.BackColor = Color.LightSeaGreen;
+            highscoresButton.Location = new Point(350, 263);
+            highscoresButton.Name = "highscoresButton";
+            highscoresButton.Size = new Size(200, 60);
+            highscoresButton.TabIndex = 1;
+            highscoresButton.Text = "Highscores";
+            highscoresButton.UseVisualStyleBackColor = false;
+            highscoresButton.Click += hiscoresButton_Click;
             // 
             // informationsButton
             // 
             informationsButton.BackColor = Color.LightSeaGreen;
-            informationsButton.Location = new Point(350, 313);
+            informationsButton.Location = new Point(350, 329);
             informationsButton.Name = "informationsButton";
             informationsButton.Size = new Size(200, 60);
             informationsButton.TabIndex = 2;
@@ -71,7 +71,7 @@
             // exitButton
             // 
             exitButton.BackColor = Color.LightSeaGreen;
-            exitButton.Location = new Point(350, 379);
+            exitButton.Location = new Point(350, 395);
             exitButton.Name = "exitButton";
             exitButton.Size = new Size(200, 60);
             exitButton.TabIndex = 3;
@@ -87,7 +87,7 @@
             ClientSize = new Size(882, 653);
             Controls.Add(exitButton);
             Controls.Add(informationsButton);
-            Controls.Add(hiscoresButton);
+            Controls.Add(highscoresButton);
             Controls.Add(startButton);
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(6);
@@ -100,7 +100,7 @@
         #endregion
 
         private Button startButton;
-        private Button hiscoresButton;
+        private Button highscoresButton;
         private Button informationsButton;
         private Button exitButton;
     }

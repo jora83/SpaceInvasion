@@ -57,7 +57,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(15, 65);
+            label3.Location = new Point(15, 54);
             label3.Name = "label3";
             label3.Size = new Size(150, 41);
             label3.TabIndex = 2;
@@ -66,27 +66,27 @@
             // objectiveRichTextBox
             // 
             objectiveRichTextBox.BackColor = Color.LightSeaGreen;
-            objectiveRichTextBox.Location = new Point(12, 111);
+            objectiveRichTextBox.Location = new Point(12, 100);
             objectiveRichTextBox.Name = "objectiveRichTextBox";
             objectiveRichTextBox.ReadOnly = true;
-            objectiveRichTextBox.Size = new Size(858, 150);
+            objectiveRichTextBox.Size = new Size(858, 200);
             objectiveRichTextBox.TabIndex = 3;
             objectiveRichTextBox.Text = "lalalalala";
             // 
             // controlsRichTextBox
             // 
             controlsRichTextBox.BackColor = Color.LightSeaGreen;
-            controlsRichTextBox.Location = new Point(12, 313);
+            controlsRichTextBox.Location = new Point(12, 352);
             controlsRichTextBox.Name = "controlsRichTextBox";
             controlsRichTextBox.ReadOnly = true;
-            controlsRichTextBox.Size = new Size(858, 150);
+            controlsRichTextBox.Size = new Size(858, 200);
             controlsRichTextBox.TabIndex = 4;
             controlsRichTextBox.Text = "";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(15, 269);
+            label4.Location = new Point(15, 308);
             label4.Name = "label4";
             label4.Size = new Size(137, 41);
             label4.TabIndex = 5;
