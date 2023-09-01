@@ -26,7 +26,7 @@ namespace SpaceInvasion
 
         private void hiscoresButton_Click(object sender, EventArgs e)
         {
-            HiscoresForm hiscoresForm = new HiscoresForm();
+            HighScoresForm hiscoresForm = new HighScoresForm();
             this.Hide();
             hiscoresForm.Show();
         }

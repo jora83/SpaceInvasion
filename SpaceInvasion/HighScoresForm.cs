@@ -9,22 +9,36 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
+using System.Diagnostics;
+
 namespace SpaceInvasion
 {
-    public partial class HiscoresForm : Form
+    public partial class HighScoresForm : Form
     {
         HighscoreSystem HighscoreSystem = new HighscoreSystem();
         List<KeyValuePair<string, int>> highscores = new List<KeyValuePair<string, int>>();
         DataTable dataTable = new DataTable();
 
-        public HiscoresForm()
+        public HighScoresForm()
         {
             InitializeComponent();
             HighscoreSystem.LoadHighscores();
             highscores = HighscoreSystem.GetHighscores();
             ConvertToDataTable();
+            Debug.WriteLine(calculate(dataGridView.Rows[0]));
+            Debug.WriteLine(calculate(dataGridView.Rows[1]));
+            Debug.WriteLine(calculate(dataGridView.Rows[2]));
+            Debug.WriteLine(calculate(dataGridView.Rows[3]));
         }
-
+        int calculate(DataGridViewRow row)
+        {
+            int result = 0;
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                result = cell.Size.Width;
+            }
+            return result;
+        }
         public void ConvertToDataTable()
         {
             dataTable.Columns.Clear();

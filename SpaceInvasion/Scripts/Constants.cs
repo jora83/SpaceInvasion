@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SpaceInvasion.Scripts
+﻿namespace SpaceInvasion.Scripts
 {
     public static class Constants
     {
@@ -34,7 +28,7 @@ namespace SpaceInvasion.Scripts
         public const int ScoreIncreasePerEnemy = 10;
         public const int DamagePerEnemyCollision = 10;
 
-        public const string HighscoresFileName = "Highscores.json";
+        public const string HighscoresFileName = "HighScores.json";
         public const string ObjectiveFileName = "Objective.txt";
         public const string ControlsFileName = "Controls.txt";
     }

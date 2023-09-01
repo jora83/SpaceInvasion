@@ -71,7 +71,7 @@
             objectiveRichTextBox.ReadOnly = true;
             objectiveRichTextBox.Size = new Size(858, 200);
             objectiveRichTextBox.TabIndex = 3;
-            objectiveRichTextBox.Text = "lalalalala";
+            objectiveRichTextBox.Text = "";
             // 
             // controlsRichTextBox
             // 

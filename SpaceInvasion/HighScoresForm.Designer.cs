@@ -1,6 +1,6 @@
 ﻿namespace SpaceInvasion
 {
-    partial class HiscoresForm
+    partial class HighScoresForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,27 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            playerBindingSource = new BindingSource(components);
             dataGridView = new DataGridView();
             backButton = new Button();
             highscoresLabel = new Label();
-            ((System.ComponentModel.ISupportInitialize)playerBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
-            // playerBindingSource
-            // 
-            playerBindingSource.DataSource = typeof(Scripts.Player);
-            // 
             // dataGridView
             // 
+            dataGridView.BackgroundColor = Color.Gray;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(200, 71);
+            dataGridView.Location = new Point(214, 71);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
             dataGridView.RowTemplate.Height = 29;
-            dataGridView.Size = new Size(500, 500);
+            dataGridView.Size = new Size(472, 500);
             dataGridView.TabIndex = 0;
             // 
             // backButton
@@ -85,14 +79,12 @@
             Name = "HiscoresForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "HiscoresForm";
-            ((System.ComponentModel.ISupportInitialize)playerBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private BindingSource playerBindingSource;
         private DataGridView dataGridView;
         private Button backButton;
         private Label highscoresLabel;

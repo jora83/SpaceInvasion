@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.IO;
-using System.Reflection;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using SpaceInvasion.Properties;
+﻿using System.Text.Json;
 
 namespace SpaceInvasion.Scripts
 {
