@@ -87,7 +87,7 @@ namespace SpaceInvasion
             player.Move(formWidth);
             player.Shoot();
 
-            foreach (var bullet in player.activeBullets)
+            foreach (var bullet in player.ActiveBullets)
             {
                 Controls.Add(bullet.PictureBox);
                 if (bullet.PosY < 0)
@@ -133,7 +133,7 @@ namespace SpaceInvasion
                         enemy.Dispose = true;
                     }
 
-                    foreach (var bullet in player.activeBullets)
+                    foreach (var bullet in player.ActiveBullets)
                     {
                         if (enemy.HasCollided(bullet.PictureBox))
                         {
@@ -228,7 +228,7 @@ namespace SpaceInvasion
             {
                 Controls.Remove(enemy.PictureBox);
             }
-            foreach (var bullet in player.activeBullets)
+            foreach (var bullet in player.ActiveBullets)
             {
                 Controls.Remove(bullet.PictureBox);
             }

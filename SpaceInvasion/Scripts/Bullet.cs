@@ -2,7 +2,7 @@
 {
     public class Bullet
     {
-        private const int BulletSpeed = Constants.BulletSpeed;
+        private int BulletSpeed = Constants.BulletSpeed;
         public int PosX { get; set; }
         public int PosY { get; set; }
         public PictureBox PictureBox { get; private set; }

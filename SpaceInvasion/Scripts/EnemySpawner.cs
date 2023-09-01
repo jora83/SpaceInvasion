@@ -29,7 +29,7 @@
         public void SpawnEnemies(int score)
         {
             int enemyPosX = rnd.Next(0, formWidth - Constants.EnemyWidth);
-            int enemyPosY = rnd.Next(Constants.EnemyPosY1, Constants.EnemyPosY2) * -1;
+            int enemyPosY = rnd.Next(Constants.EnemyPosY1, Constants.EnemyPosY2);
 
             frequency--;
 
