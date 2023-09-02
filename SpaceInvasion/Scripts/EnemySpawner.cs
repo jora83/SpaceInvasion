@@ -2,20 +2,21 @@
 {
     public class EnemySpawner
     {
-        private Random rnd = new Random();
-        private int formWidth;
-        private bool increaseSpeedAndFrequency;
         private int frequency;
         private int newFrequency;
         private int enemySpeed;
-        public List<Enemy> EnemyList { get; } = new List<Enemy>();
+        private int formWidth;
+        private bool increaseSpeedAndFrequency;
+        private Random rnd = new Random();
+        public List<Enemy> EnemyList { get; private set; }
 
         public EnemySpawner(int frequency, int enemySpeed, int formWidth)
         {
             this.frequency = frequency;
-            this.newFrequency = frequency;
+            newFrequency = frequency;
             this.enemySpeed = enemySpeed;
             this.formWidth = formWidth;
+            EnemyList = new List<Enemy>();
             EnemyList.Clear();
         }
 

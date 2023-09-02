@@ -2,7 +2,7 @@
 {
     public class Bullet
     {
-        private int BulletSpeed = Constants.BulletSpeed;
+        private readonly int bulletSpeed = Constants.BulletSpeed;
         public int PosX { get; set; }
         public int PosY { get; set; }
         public PictureBox PictureBox { get; private set; }
@@ -25,7 +25,7 @@
 
         public void Move()
         {
-            PosY -= BulletSpeed;
+            PosY -= bulletSpeed;
             PictureBox.Top = PosY;
         }
     }

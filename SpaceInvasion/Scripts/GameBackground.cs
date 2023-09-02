@@ -2,19 +2,18 @@
 {
     public class GameBackground
     {
-        public List<Star> Stars { get; private set; } = new List<Star>();
         private Random rnd;
         private Image[] starImages;
         private int starCount;
         private int maxWidth;
         private int maxHeight;
+        public List<Star> Stars { get; private set; }
 
         public GameBackground(int starCount, int maxWidth, int maxHeight)
         {
             this.starCount = starCount;
             this.maxWidth = maxWidth;
             this.maxHeight = maxHeight;
-
             Stars = GenerateStars();
         }
 

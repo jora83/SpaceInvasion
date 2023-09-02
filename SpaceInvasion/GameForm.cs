@@ -265,7 +265,7 @@ namespace SpaceInvasion
         private void GoToMainMenu()
         {
             highscoreSystem.AddUser(username, player.Score);
-            highscoreSystem.SaveHiscores();
+            highscoreSystem.SaveHighscores();
             MainForm mainForm = new MainForm();
             mainForm.Show();
             this.Hide();

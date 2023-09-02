@@ -15,6 +15,7 @@ namespace SpaceInvasion
     {
         private string objectiveTextPath;
         private string controlsTextPath;
+
         public InformationsForm()
         {
             InitializeComponent();

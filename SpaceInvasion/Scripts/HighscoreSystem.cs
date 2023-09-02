@@ -5,11 +5,12 @@ namespace SpaceInvasion.Scripts
     public class HighscoreSystem
     {
 
-        private Dictionary<string, int> highscores = new Dictionary<string, int>();
-        string filePath;
+        private Dictionary<string, int> highscores;
+        private string filePath;
 
         public HighscoreSystem()
         {
+            highscores = new Dictionary<string, int>();
             filePath = Path.Combine(Application.StartupPath, Constants.HighscoresFileName);
             LoadHighscores();
         }
@@ -35,15 +36,14 @@ namespace SpaceInvasion.Scripts
             return sortedHighscores;
         }
 
-        public void SaveHiscores()
+        public void SaveHighscores()
         {
             string json = JsonSerializer.Serialize(highscores,
                 new JsonSerializerOptions
                 {
                     WriteIndented = true
                 });
-            File.WriteAllText(filePath, json);
-            
+            File.WriteAllText(filePath, json);   
         }
 
         public void LoadHighscores()
